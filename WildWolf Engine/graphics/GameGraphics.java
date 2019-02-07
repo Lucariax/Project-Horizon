@@ -1105,49 +1105,11 @@ public final class GameGraphics implements ImageObserver {
      * Initializes the drawing panel's menu bar items.
      */
     private void setupMenuBar() {
-        // abort compare if we're running as an applet or in a secure environment
-        boolean secure = (System.getSecurityManager() != null);
-        
-        JMenuItem saveAs = new JMenuItem("Save As...", 'A');
-        saveAs.addActionListener(actionListener);
-        saveAs.setAccelerator(KeyStroke.getKeyStroke("ctrl S"));
-        saveAs.setEnabled(!secure);
-        
-        JMenuItem saveAnimated = new JMenuItem("Save Animated GIF...", 'G');
-        saveAnimated.addActionListener(actionListener);
-        saveAnimated.setAccelerator(KeyStroke.getKeyStroke("ctrl A"));
-        saveAnimated.setEnabled(!secure);
-        
-        JMenuItem compare = new JMenuItem("Compare to File...", 'C');
-        compare.addActionListener(actionListener);
-        compare.setEnabled(!secure);
-        
-        JMenuItem compareURL = new JMenuItem("Compare to Web File...", 'U');
-        compareURL.addActionListener(actionListener);
-        compareURL.setAccelerator(KeyStroke.getKeyStroke("ctrl U"));
-        compareURL.setEnabled(!secure);
-        
-        JMenuItem zoomIn = new JMenuItem("Zoom In", 'I');
-        zoomIn.addActionListener(actionListener);
-        zoomIn.setAccelerator(KeyStroke.getKeyStroke("ctrl EQUALS"));
-        
-        JMenuItem zoomOut = new JMenuItem("Zoom Out", 'O');
-        zoomOut.addActionListener(actionListener);
-        zoomOut.setAccelerator(KeyStroke.getKeyStroke("ctrl MINUS"));
-        
-        JMenuItem zoomNormal = new JMenuItem("Zoom Normal (100%)", 'N');
-        zoomNormal.addActionListener(actionListener);
-        zoomNormal.setAccelerator(KeyStroke.getKeyStroke("ctrl 0"));
-        
-        JMenuItem gridLinesItem = new JCheckBoxMenuItem("Grid Lines");
-        gridLinesItem.setMnemonic('G');
-        gridLinesItem.addActionListener(actionListener);
-        gridLinesItem.setAccelerator(KeyStroke.getKeyStroke("ctrl G"));
-        
         JMenuItem exit = new JMenuItem("Exit", 'x');
         exit.addActionListener(actionListener);
         
         JMenuItem about = new JMenuItem("About...");
+        
         about.addActionListener(actionListener);
         
         JMenuItem controls = new JMenuItem("Controls");
@@ -1158,36 +1120,17 @@ public final class GameGraphics implements ImageObserver {
         
         JMenu file = new JMenu("File");
         file.setMnemonic('F');
-        file.add(compareURL);
-        file.add(compare);
-        file.addSeparator();
-        file.add(saveAs);
-        file.add(saveAnimated);
-        file.addSeparator();
+        // file.add(Save Game);
         file.add(exit);
-        
-        JMenu view = new JMenu("View");
-        view.setMnemonic('V');
-        view.add(zoomIn);
-        view.add(zoomOut);
-        view.add(zoomNormal);
-        view.addSeparator();
-        view.add(gridLinesItem);
         
         JMenu help = new JMenu("Help");
         help.setMnemonic('H');
         help.add(about);
         
-        JMenu about2 = new JMenu("How to Play...");
-        about2.setMnemonic('A');
-        about2.add(controls);
-        about2.add(developer);
         
         JMenuBar bar = new JMenuBar();
         bar.add(file);
-        bar.add(view);
         bar.add(help);
-        bar.add(about2);
         frame.setJMenuBar(bar);
     }
     
@@ -2867,16 +2810,14 @@ public final class GameGraphics implements ImageObserver {
             os.write(3); // data sub-block size
             os.write(1); // a looping flag? dunno
 
-            // we finally write the relevent data
             putShort(loopCount > 1 ? loopCount - 1 : 0, os);
 
-            os.write(0); // block terminator
+            os.write(0);
         }
 
-        // ----------------------------------------------------------------------------
         private void writeCommentExtension(OutputStream os) throws IOException {
-            os.write((int) '!'); // GIF Extension Introducer
-            os.write(0xfe); // Comment Extension Label
+            os.write((int) '!');
+            os.write(0xfe);
 
             int remainder = theComments.length() % 255;
             int nsubblocks_full = theComments.length() / 255;
@@ -2890,35 +2831,28 @@ public final class GameGraphics implements ImageObserver {
                 ibyte += size;
             }
 
-            os.write(0); // block terminator
+            os.write(0);
         }
 
-        // ----------------------------------------------------------------------------
         private boolean isOk(int frame_index) {
             return frame_index >= 0 && frame_index < vFrames.size();
         }
     }
 
-    // ==============================================================================
     class GifColorTable {
 
-        // the palette of ARGB colors, packed as returned by Color.getRGB()
         private int[] theColors = new int[256];
 
-        // other basic attributes
         private int colorDepth;
         private int transparentIndex = -1;
 
-        // these fields track color-index info across frames
-        private int ciCount = 0; // count of distinct color indices
-        private ReverseColorMap ciLookup; // cumulative rgb-to-ci lookup table
+        private int ciCount = 0;
+        private ReverseColorMap ciLookup;
 
-        // ----------------------------------------------------------------------------
         GifColorTable() {
-            ciLookup = new ReverseColorMap(); // puts us into "auto-detect mode"
+            ciLookup = new ReverseColorMap();
         }
 
-        // ----------------------------------------------------------------------------
         GifColorTable(Color[] colors) {
             int n2copy = Math.min(theColors.length, colors.length);
             for (int i = 0; i < n2copy; ++i)
@@ -2935,23 +2869,18 @@ public final class GameGraphics implements ImageObserver {
             return -1;
         }
 
-        // ----------------------------------------------------------------------------
         int getDepth() {
             return colorDepth;
         }
 
-        // ----------------------------------------------------------------------------
         int getTransparent() {
             return transparentIndex;
         }
 
-        // ----------------------------------------------------------------------------
-        // default: -1 (no transparency)
         void setTransparent(int color_index) {
             transparentIndex = color_index;
         }
 
-        // ----------------------------------------------------------------------------
         void processPixels(Gif89Frame gf) throws IOException {
             if (gf instanceof DirectGif89Frame)
                 filterPixels((DirectGif89Frame) gf);
@@ -2959,19 +2888,12 @@ public final class GameGraphics implements ImageObserver {
                 trackPixelUsage((IndexGif89Frame) gf);
         }
 
-        // ----------------------------------------------------------------------------
-        void closePixelProcessing() // must be called before encode()
+        void closePixelProcessing()
         {
             colorDepth = computeColorDepth(ciCount);
         }
 
-        // ----------------------------------------------------------------------------
         void encode(OutputStream os) throws IOException {
-            // size of palette written is the smallest power of 2 that can
-            // accomdate
-            // the number of RGB colors detected (or largest color index, in
-            // case of
-            // index pixels)
             int palette_size = 1 << colorDepth;
             for (int i = 0; i < palette_size; ++i) {
                 os.write(theColors[i] >> 16 & 0xff);
@@ -2980,16 +2902,6 @@ public final class GameGraphics implements ImageObserver {
             }
         }
 
-        // ----------------------------------------------------------------------------
-        // This method accomplishes three things:
-        // (1) converts the passed rgb pixels to indexes into our rgb lookup
-        // table
-        // (2) fills the rgb table as new colors are encountered
-        // (3) looks for transparent pixels so as to set the transparent index
-        // The information is cumulative across multiple calls.
-        //
-        // (Note: some of the logic is borrowed from Jef Poskanzer's code.)
-        // ----------------------------------------------------------------------------
         private void filterPixels(DirectGif89Frame dgf) throws IOException {
             if (ciLookup == null)
                 throw new IOException(
@@ -3001,48 +2913,35 @@ public final class GameGraphics implements ImageObserver {
             for (int i = 0; i < npixels; ++i) {
                 int argb = argb_pixels[i];
 
-                // handle transparency
-                if ((argb >>> 24) < 0x80) // transparent pixel?
-                    if (transparentIndex == -1) // first transparent color
-                                                // encountered?
-                        transparentIndex = ciCount; // record its index
-                    else if (argb != theColors[transparentIndex]) // different
-                                                                    // pixel
-                                                                    // value?
+                if ((argb >>> 24) < 0x80)
+                    if (transparentIndex == -1)
+                        transparentIndex = ciCount;
+                    else if (argb != theColors[transparentIndex])
                     {
-                        // collapse all transparent pixels into one color index
                         ci_pixels[i] = (byte) transparentIndex;
-                        continue; // CONTINUE - index already in table
+                        continue;
                     }
 
-                // try to look up the index in our "reverse" color table
                 int color_index = ciLookup.getPaletteIndex(argb & 0xffffff);
 
-                if (color_index == -1) // if it isn't in there yet
+                if (color_index == -1)
                 {
                     if (ciCount == 256)
                         throw new IOException(
                                 "can't encode as GIF (> 256 colors)");
 
-                    // store color in our accumulating palette
                     theColors[ciCount] = argb;
 
-                    // store index in reverse color table
                     ciLookup.put(argb & 0xffffff, ciCount);
 
-                    // send color index to our output array
                     ci_pixels[i] = (byte) ciCount;
 
-                    // increment count of distinct color indices
                     ++ciCount;
                 } else
-                    // we've already snagged color into our palette
-                    ci_pixels[i] = (byte) color_index; // just send filtered
-                                                        // pixel
+                    ci_pixels[i] = (byte) color_index;
             }
         }
 
-        // ----------------------------------------------------------------------------
         private void trackPixelUsage(IndexGif89Frame igf) throws IOException {
             byte[] ci_pixels = (byte[]) igf.getPixelSource();
             int npixels = ci_pixels.length;
@@ -3051,11 +2950,7 @@ public final class GameGraphics implements ImageObserver {
                     ciCount = ci_pixels[i] + 1;
         }
 
-        // ----------------------------------------------------------------------------
         private int computeColorDepth(int colorcount) {
-            // color depth = log-base-2 of maximum number of simultaneous
-            // colors, i.e.
-            // bits per color-index pixel
             if (colorcount <= 2)
                 return 1;
             if (colorcount <= 4)
@@ -3066,16 +2961,6 @@ public final class GameGraphics implements ImageObserver {
         }
     }
 
-    // ==============================================================================
-    // We're doing a very simple linear hashing thing here, which seems
-    // sufficient
-    // for our needs. I make no claims for this approach other than that it
-    // seems
-    // an improvement over doing a brute linear search for each pixel on the one
-    // hand, and creating a Java object for each pixel (if we were to use a Java
-    // Hashtable) on the other. Doubtless my little hash could be improved by
-    // tuning the capacity (at the very least). Suggestions are welcome.
-    // ==============================================================================
     class ReverseColorMap {
 
         private class ColorRecord {
@@ -3088,22 +2973,10 @@ public final class GameGraphics implements ImageObserver {
             }
         }
 
-        // I wouldn't really know what a good hashing capacity is, having missed
-        // out
-        // on data structures and algorithms class :) Alls I know is, we've got
-        // a lot
-        // more space than we have time. So let's try a sparse table with a
-        // maximum
-        // load of about 1/8 capacity.
-        private static final int HCAPACITY = 2053; // a nice prime number
+        private static final int HCAPACITY = 2053;
 
-        // our hash table proper
         private ColorRecord[] hTable = new ColorRecord[HCAPACITY];
 
-        // ----------------------------------------------------------------------------
-        // Assert: rgb is not negative (which is the same as saying, be sure the
-        // alpha transparency byte - i.e., the high byte - has been masked out).
-        // ----------------------------------------------------------------------------
         int getPaletteIndex(int rgb) {
             ColorRecord rec;
 
@@ -3117,9 +2990,6 @@ public final class GameGraphics implements ImageObserver {
             return -1;
         }
 
-        // ----------------------------------------------------------------------------
-        // Assert: (1) same as above; (2) rgb key not already present
-        // ----------------------------------------------------------------------------
         void put(int rgb, int ipalette) {
             int itable;
 
@@ -3131,175 +3001,57 @@ public final class GameGraphics implements ImageObserver {
         }
     }
 
-    // ******************************************************************************
-    // Gif89Frame.java
-    // ******************************************************************************
-
-    // ==============================================================================
-    /**
-     * First off, just to dispel any doubt, this class and its subclasses have
-     * nothing to do with GUI "frames" such as java.awt.Frame. We merely use the
-     * term in its very common sense of a still picture in an animation
-     * sequence. It's hoped that the restricted context will prevent any
-     * confusion.
-     * <p>
-     * An instance of this class is used in conjunction with a Gif89Encoder
-     * object to represent and encode a single static image and its associated
-     * "control" data. A Gif89Frame doesn't know or care whether it is encoding
-     * one of the many animation frames in a GIF movie, or the single bitmap in
-     * a "normal" GIF. (FYI, this design mirrors the encoded GIF structure.)
-     * <p>
-     * Since Gif89Frame is an abstract class we don't instantiate it directly,
-     * but instead create instances of its concrete subclasses, IndexGif89Frame
-     * and DirectGif89Frame. From the API standpoint, these subclasses differ
-     * only in the sort of data their instances are constructed from. Most folks
-     * will probably work with DirectGif89Frame, since it can be constructed
-     * from a java.awt.Image object, but the lower-level IndexGif89Frame class
-     * offers advantages in specialized circumstances. (Of course, in routine
-     * situations you might not explicitly instantiate any frames at all,
-     * instead letting Gif89Encoder's convenience methods do the honors.)
-     * <p>
-     * As far as the public API is concerned, objects in the Gif89Frame
-     * hierarchy interact with a Gif89Encoder only via the latter's methods for
-     * adding and querying frames. (As a side note, you should know that while
-     * Gif89Encoder objects are permanently modified by the addition of
-     * Gif89Frames, the reverse is NOT true. That is, even though the ultimate
-     * encoding of a Gif89Frame may be affected by the context its parent
-     * encoder object provides, it retains its original condition and can be
-     * reused in a different context.)
-     * <p>
-     * The core pixel-encoding code in this class was essentially lifted from
-     * Jef Poskanzer's well-known <cite>Acme GifEncoder</cite>, so please see
-     * the <a href="../readme.txt">readme</a> containing his notice.
-     *
-     * @version 0.90 beta (15-Jul-2000)
-     * @author J. M. G. Elliott (tep@jmge.net)
-     * @see Gif89Encoder
-     * @see DirectGif89Frame
-     * @see IndexGif89Frame
-     */
     abstract class Gif89Frame {
 
-        // // Public "Disposal Mode" constants ////
-
-        /**
-         * The animated GIF renderer shall decide how to dispose of this
-         * Gif89Frame's display area.
-         * 
-         * @see Gif89Frame#setDisposalMode
-         */
         public static final int DM_UNDEFINED = 0;
 
-        /**
-         * The animated GIF renderer shall take no display-disposal action.
-         * 
-         * @see Gif89Frame#setDisposalMode
-         */
         public static final int DM_LEAVE = 1;
 
-        /**
-         * The animated GIF renderer shall replace this Gif89Frame's area with
-         * the background color.
-         * 
-         * @see Gif89Frame#setDisposalMode
-         */
         public static final int DM_BGCOLOR = 2;
 
-        /**
-         * The animated GIF renderer shall replace this Gif89Frame's area with
-         * the previous frame's bitmap.
-         * 
-         * @see Gif89Frame#setDisposalMode
-         */
         public static final int DM_REVERT = 3;
 
-        // // Bitmap variables set in package subclass constructors ////
         int theWidth = -1;
         int theHeight = -1;
         byte[] ciPixels;
 
-        // // GIF graphic frame control options ////
         private Point thePosition = new Point(0, 0);
         private boolean isInterlaced;
         private int csecsDelay;
         private int disposalCode = DM_LEAVE;
 
-        // ----------------------------------------------------------------------------
-        /**
-         * Set the position of this frame within a larger animation display
-         * space.
-         *
-         * @param p
-         *            Coordinates of the frame's upper left corner in the
-         *            display space. (Default: The logical display's origin [0,
-         *            0])
-         * @see Gif89Encoder#setLogicalDisplay
-         */
         public void setPosition(Point p) {
             thePosition = new Point(p);
         }
 
-        // ----------------------------------------------------------------------------
-        /**
-         * Set or clear the interlace flag.
-         *
-         * @param b
-         *            true if you want interlacing. (Default: false)
-         */
         public void setInterlaced(boolean b) {
             isInterlaced = b;
         }
-
-        // ----------------------------------------------------------------------------
-        /**
-         * Set the between-frame interval.
-         *
-         * @param interval
-         *            Centiseconds to wait before displaying the subsequent
-         *            frame. (Default: 0)
-         */
         public void setDelay(int interval) {
             csecsDelay = interval;
         }
 
-        // ----------------------------------------------------------------------------
-        /**
-         * Setting this option determines (in a cooperative GIF-viewer) what
-         * will be done with this frame's display area before the subsequent
-         * frame is displayed. For instance, a setting of DM_BGCOLOR can be used
-         * for erasure when redrawing with displacement.
-         *
-         * @param code
-         *            One of the four int constants of the Gif89Frame.DM_*
-         *            series. (Default: DM_LEAVE)
-         */
         public void setDisposalMode(int code) {
             disposalCode = code;
         }
 
-        // ----------------------------------------------------------------------------
         Gif89Frame() {
-        } // package-visible default constructor
+        }
 
-        // ----------------------------------------------------------------------------
         abstract Object getPixelSource();
 
-        // ----------------------------------------------------------------------------
         int getWidth() {
             return theWidth;
         }
 
-        // ----------------------------------------------------------------------------
         int getHeight() {
             return theHeight;
         }
 
-        // ----------------------------------------------------------------------------
         byte[] getPixelSink() {
             return ciPixels;
         }
 
-        // ----------------------------------------------------------------------------
         void encode(OutputStream os, boolean epluribus, int color_depth,
                 int transparent_index) throws IOException {
             writeGraphicControlExtension(os, epluribus, transparent_index);
@@ -3308,36 +3060,33 @@ public final class GameGraphics implements ImageObserver {
                     color_depth).encode(os);
         }
 
-        // ----------------------------------------------------------------------------
         private void writeGraphicControlExtension(OutputStream os,
                 boolean epluribus, int itransparent) throws IOException {
             int transflag = itransparent == -1 ? 0 : 1;
-            if (transflag == 1 || epluribus) // using transparency or animating
-                                                // ?
+            if (transflag == 1 || epluribus) 
+                                    
             {
-                os.write((int) '!'); // GIF Extension Introducer
-                os.write(0xf9); // Graphic Control Label
-                os.write(4); // subsequent data block size
-                os.write((disposalCode << 2) | transflag); // packed fields (1
-                                                            // byte)
-                putShort(csecsDelay, os); // delay field (2 bytes)
-                os.write(itransparent); // transparent index field
-                os.write(0); // block terminator
+                os.write((int) '!');
+                os.write(0xf9); 
+                os.write(4); 
+                os.write((disposalCode << 2) | transflag);
+                                                        
+                putShort(csecsDelay, os);
+                os.write(itransparent);
+                os.write(0);
             }
         }
 
-        // ----------------------------------------------------------------------------
         private void writeImageDescriptor(OutputStream os) throws IOException {
-            os.write((int) ','); // Image Separator
+            os.write((int) ',');
             putShort(thePosition.x, os);
             putShort(thePosition.y, os);
             putShort(theWidth, os);
             putShort(theHeight, os);
-            os.write(isInterlaced ? 0x40 : 0); // packed fields (1 byte)
+            os.write(isInterlaced ? 0x40 : 0);
         }
     }
 
-    // ==============================================================================
     class GifPixelsEncoder {
 
         private static final int EOF = -1;
@@ -3347,12 +3096,10 @@ public final class GameGraphics implements ImageObserver {
         private boolean wantInterlaced;
         private int initCodeSize;
 
-        // raster data navigators
         private int countDown;
         private int xCur, yCur;
         private int curPass;
 
-        // ----------------------------------------------------------------------------
         GifPixelsEncoder(int width, int height, byte[] pixels,
                 boolean interlaced, int color_depth) {
             imgW = width;
@@ -3362,37 +3109,20 @@ public final class GameGraphics implements ImageObserver {
             initCodeSize = Math.max(2, color_depth);
         }
 
-        // ----------------------------------------------------------------------------
         void encode(OutputStream os) throws IOException {
-            os.write(initCodeSize); // write "initial code size" byte
+            os.write(initCodeSize);
 
-            countDown = imgW * imgH; // reset navigation variables
+            countDown = imgW * imgH;
             xCur = yCur = curPass = 0;
 
-            compress(initCodeSize + 1, os); // compress and write the pixel data
+            compress(initCodeSize + 1, os);
 
-            os.write(0); // write block terminator
+            os.write(0);
         }
 
-        // ****************************************************************************
-        // (J.E.) The logic of the next two methods is largely intact from
-        // Jef Poskanzer. Some stylistic changes were made for consistency sake,
-        // plus the second method accesses the pixel value from a prefiltered
-        // linear
-        // array. That's about it.
-        // ****************************************************************************
-
-        // ----------------------------------------------------------------------------
-        // Bump the 'xCur' and 'yCur' to point to the next pixel.
-        // ----------------------------------------------------------------------------
         private void bumpPosition() {
-            // Bump the current X position
             ++xCur;
 
-            // If we are at the end of a scan line, set xCur back to the
-            // beginning
-            // If we are interlaced, bump the yCur to the appropriate spot,
-            // otherwise, just increment it.
             if (xCur == imgW) {
                 xCur = 0;
 
@@ -3428,9 +3158,6 @@ public final class GameGraphics implements ImageObserver {
             }
         }
 
-        // ----------------------------------------------------------------------------
-        // Return the next pixel from the image
-        // ----------------------------------------------------------------------------
         private int nextPixel() {
             if (countDown == 0)
                 return EOF;
@@ -3444,47 +3171,16 @@ public final class GameGraphics implements ImageObserver {
             return pix & 0xff;
         }
 
-        // ****************************************************************************
-        // (J.E.) I didn't touch Jef Poskanzer's code from this point on. (Well,
-        // OK,
-        // I changed the name of the sole outside method it accesses.) I figure
-        // if I have no idea how something works, I shouldn't play with it :)
-        //
-        // Despite its unencapsulated structure, this section is actually highly
-        // self-contained. The calling code merely calls compress(), and the
-        // present
-        // code calls nextPixel() in the caller. That's the sum total of their
-        // communication. I could have dumped it in a separate class with a
-        // callback
-        // via an interface, but it didn't seem worth messing with.
-        // ****************************************************************************
-
-        // GIFCOMPR.C - GIF Image compression routines
-        //
-        // Lempel-Ziv compression based on 'compress'. GIF modifications by
-        // David Rowley (mgardi@watdcsu.waterloo.edu)
-
-        // General DEFINEs
 
         static final int BITS = 12;
 
-        static final int HSIZE = 5003; // 80% occupancy
+        static final int HSIZE = 5003;
 
-        // GIF Image compression - modified 'compress'
-        //
-        // Based on: compress.c - File compression ala IEEE Computer, June 1984.
-        //
-        // By Authors: Spencer W. Thomas (decvax!harpo!utah-cs!utah-gr!thomas)
-        // Jim McKie (decvax!mcvax!jim)
-        // Steve Davies (decvax!vax135!petsd!peora!srd)
-        // Ken Turkowski (decvax!decwrl!turtlevax!ken)
-        // James A. Woods (decvax!ihnp4!ames!jaw)
-        // Joe Orost (decvax!vax135!petsd!joe)
 
-        int n_bits; // number of bits/code
-        int maxbits = BITS; // user settable max # bits/code
-        int maxcode; // maximum code, given n_bits
-        int maxmaxcode = 1 << BITS; // should NEVER generate this code
+        int n_bits;
+        int maxbits = BITS;
+        int maxcode;
+        int maxmaxcode = 1 << BITS;
 
         final int MAXCODE(int n_bits) {
             return (1 << n_bits) - 1;
@@ -3493,29 +3189,11 @@ public final class GameGraphics implements ImageObserver {
         int[] htab = new int[HSIZE];
         int[] codetab = new int[HSIZE];
 
-        int hsize = HSIZE; // for dynamic table sizing
+        int hsize = HSIZE;
 
-        int free_ent = 0; // first unused entry
+        int free_ent = 0;
 
-        // block compression parameters -- after all codes are used up,
-        // and compression rate changes, start over.
         boolean clear_flg = false;
-
-        // Algorithm: use open addressing double hashing (no chaining) on the
-        // prefix code / next character combination. We do a variant of Knuth's
-        // algorithm D (vol. 3, sec. 6.4) along with G. Knott's relatively-prime
-        // secondary probe. Here, the modular division first probe is gives way
-        // to a faster exclusive-or manipulation. Also do block compression with
-        // an adaptive reset, whereby the code table is cleared when the
-        // compression
-        // ratio decreases, but after the table fills. The variable-length
-        // output
-        // codes are re-sized at this point, and a special CLEAR code is
-        // generated
-        // for the decompressor. Late addition: construct the table according to
-        // file size for noticeable speed improvement on small files. Please
-        // direct
-        // questions about this implementation to ames!jaw.
 
         int g_init_bits;
 
@@ -3524,17 +3202,15 @@ public final class GameGraphics implements ImageObserver {
 
         void compress(int init_bits, OutputStream outs) throws IOException {
             int fcode;
-            int i /* = 0 */;
+            int i;
             int c;
             int ent;
             int disp;
             int hsize_reg;
             int hshift;
 
-            // Set up the globals: g_init_bits - initial number of bits
             g_init_bits = init_bits;
 
-            // Set up the necessary values
             clear_flg = false;
             n_bits = g_init_bits;
             maxcode = MAXCODE(n_bits);
@@ -3550,23 +3226,23 @@ public final class GameGraphics implements ImageObserver {
             hshift = 0;
             for (fcode = hsize; fcode < 65536; fcode *= 2)
                 ++hshift;
-            hshift = 8 - hshift; // set hash code range bound
+            hshift = 8 - hshift;
 
             hsize_reg = hsize;
-            cl_hash(hsize_reg); // clear hash table
+            cl_hash(hsize_reg);
 
             output(ClearCode, outs);
 
             outer_loop: while ((c = nextPixel()) != EOF) {
                 fcode = (c << maxbits) + ent;
-                i = (c << hshift) ^ ent; // xor hashing
+                i = (c << hshift) ^ ent;
 
                 if (htab[i] == fcode) {
                     ent = codetab[i];
                     continue;
-                } else if (htab[i] >= 0) // non-empty slot
+                } else if (htab[i] >= 0)
                 {
-                    disp = hsize_reg - i; // secondary hash (after G. Knott)
+                    disp = hsize_reg - i;
                     if (i == 0)
                         disp = 1;
                     do {
@@ -3582,30 +3258,14 @@ public final class GameGraphics implements ImageObserver {
                 output(ent, outs);
                 ent = c;
                 if (free_ent < maxmaxcode) {
-                    codetab[i] = free_ent++; // code -> hashtable
+                    codetab[i] = free_ent++;
                     htab[i] = fcode;
                 } else
                     cl_block(outs);
             }
-            // Put out the final code.
             output(ent, outs);
             output(EOFCode, outs);
         }
-
-        // output
-        //
-        // Output the given code.
-        // Inputs:
-        // code: A n_bits-bit integer. If == -1, then EOF. This assumes
-        // that n_bits =< wordsize - 1.
-        // Outputs:
-        // Outputs code to the file.
-        // Assumptions:
-        // Chars are 8 bits long.
-        // Algorithm:
-        // Maintain a BITS character long buffer (so that 8 codes will
-        // fit in it exactly). Use the VAX insv instruction to insert each
-        // code in turn. When the buffer fills up empty it and start over.
 
         int cur_accum = 0;
         int cur_bits = 0;
@@ -3630,8 +3290,6 @@ public final class GameGraphics implements ImageObserver {
                 cur_bits -= 8;
             }
 
-            // If the next entry is going to be too big for the code size,
-            // then increase it, if possible.
             if (free_ent > maxcode || clear_flg) {
                 if (clear_flg) {
                     maxcode = MAXCODE(n_bits = g_init_bits);
@@ -3646,7 +3304,6 @@ public final class GameGraphics implements ImageObserver {
             }
 
             if (code == EOFCode) {
-                // At EOF, write the rest of the buffer.
                 while (cur_bits > 0) {
                     char_out((byte) (cur_accum & 0xff), outs);
                     cur_accum >>= 8;
@@ -3657,9 +3314,7 @@ public final class GameGraphics implements ImageObserver {
             }
         }
 
-        // Clear out the hash table
 
-        // table clear for block compress
         void cl_block(OutputStream outs) throws IOException {
             cl_hash(hsize);
             free_ent = ClearCode + 2;
@@ -3668,34 +3323,26 @@ public final class GameGraphics implements ImageObserver {
             output(ClearCode, outs);
         }
 
-        // reset code table
         void cl_hash(int hsize) {
             for (int i = 0; i < hsize; ++i)
                 htab[i] = -1;
         }
 
-        // GIF Specific routines
 
-        // Number of characters so far in this 'packet'
         int a_count;
 
-        // Set up the 'byte output' routine
         void char_init() {
             a_count = 0;
         }
 
-        // Define the storage for the packet accumulator
         byte[] accum = new byte[256];
 
-        // Add a character to the end of the current packet, and if it is 254
-        // characters, flush the packet to disk.
         void char_out(byte c, OutputStream outs) throws IOException {
             accum[a_count++] = c;
             if (a_count >= 254)
                 flush_char(outs);
         }
 
-        // Flush the packet to disk, and reset the accumulator
         void flush_char(OutputStream outs) throws IOException {
             if (a_count > 0) {
                 outs.write(a_count);
@@ -3705,44 +3352,8 @@ public final class GameGraphics implements ImageObserver {
         }
     }
 
-    // ******************************************************************************
-    // IndexGif89Frame.java
-    // ******************************************************************************
-
-    // ==============================================================================
-    /**
-     * Instances of this Gif89Frame subclass are constructed from bitmaps in the
-     * form of color-index pixels, which accords with a GIF's native palettized
-     * color model. The class is useful when complete control over a GIF's color
-     * palette is desired. It is also much more efficient when one is using an
-     * algorithmic frame generator that isn't interested in RGB values (such as
-     * a cellular automaton).
-     * <p>
-     * Objects of this class are normally added to a Gif89Encoder object that
-     * has been provided with an explicit color table at construction. While you
-     * may also add them to "auto-map" encoders without an exception being
-     * thrown, there obviously must be at least one DirectGif89Frame object in
-     * the sequence so that a color table may be detected.
-     *
-     * @version 0.90 beta (15-Jul-2000)
-     * @author J. M. G. Elliott (tep@jmge.net)
-     * @see Gif89Encoder
-     * @see Gif89Frame
-     * @see DirectGif89Frame
-     */
     class IndexGif89Frame extends Gif89Frame {
 
-        // ----------------------------------------------------------------------------
-        /**
-         * Construct a IndexGif89Frame from color-index pixel data.
-         *
-         * @param width
-         *            Width of the bitmap.
-         * @param height
-         *            Height of the bitmap.
-         * @param ci_pixels
-         *            Array containing at least width*height color-index pixels.
-         */
         public IndexGif89Frame(int width, int height, byte ci_pixels[]) {
             theWidth = width;
             theHeight = height;
@@ -3750,18 +3361,11 @@ public final class GameGraphics implements ImageObserver {
             System.arraycopy(ci_pixels, 0, ciPixels, 0, ciPixels.length);
         }
 
-        // ----------------------------------------------------------------------------
         Object getPixelSource() {
             return ciPixels;
         }
     }
 
-    // ----------------------------------------------------------------------------
-    /**
-     * Write just the low bytes of a String. (This sucks, but the concept of an
-     * encoding seems inapplicable to a binary file ID string. I would think
-     * flexibility is just what we don't want - but then again, maybe I'm slow.)
-     */
     public static void putAscii(String s, OutputStream os) throws IOException {
         byte[] bytes = new byte[s.length()];
         for (int i = 0; i < bytes.length; ++i) {
@@ -3770,13 +3374,8 @@ public final class GameGraphics implements ImageObserver {
         os.write(bytes);
     }
 
-    // ----------------------------------------------------------------------------
-    /**
-     * Write a 16-bit integer in little endian byte order.
-     */
     public static void putShort(int i16, OutputStream os) throws IOException {
         os.write(i16 & 0xff);
         os.write(i16 >> 8 & 0xff);
     }
 }
-
