@@ -255,7 +255,7 @@ public final class GameGraphics implements ImageObserver {
             
             panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
             panel.setBackground(backgroundColor);
-            panel.setName("JobSim");
+            panel.setName("The Training Room");
             panel.setPreferredSize(new Dimension(width, height));
             imagePanel = new ImagePanel(image);
             imagePanel.setBackground(backgroundColor);
@@ -1383,10 +1383,10 @@ public final class GameGraphics implements ImageObserver {
             } else if (e.getActionCommand().equals("Developer")) {
                 developer();
             } else if (e.getActionCommand().equals("About...")) {
-                JOptionPane.showMessageDialog(frame,
-                        ABOUT_MESSAGE,
-                        ABOUT_MESSAGE_TITLE,
-                        JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(frame,
+                        //ABOUT_MESSAGE,
+                        //ABOUT_MESSAGE_TITLE,
+                       // JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
