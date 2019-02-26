@@ -412,6 +412,7 @@ public final class GameGraphics implements ImageObserver {
 			imagePanel = new ImagePanel(image);
 			imagePanel.setBackground(backgroundColor);
 			panel.add(imagePanel);
+			/*
 			// Transparent 16 x 16 pixel cursor image.
 			BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
@@ -419,6 +420,7 @@ public final class GameGraphics implements ImageObserver {
 			Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0),
 					"blank cursor");
 			panel.setCursor(blankCursor);
+			*/
 
 			// listen to mouse movement
 			mouseListener = new DPMouseListener();
