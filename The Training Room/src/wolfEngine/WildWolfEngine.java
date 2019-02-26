@@ -17,7 +17,5 @@ public class WildWolfEngine
         graphics = new GameGraphics(960, 540);
         graphics.addKeyListener(listenerKey);
         graphics.addMouseListener(listenerMouse);
-        
-        if(graphics.onKeyDown(e);)
     }
 }
