@@ -1,19 +1,17 @@
 package wolfEngine;
 
-import java.awt.event.MouseListener;
-
 import wolfEngine.gameplay.KeyListen;
 import wolfEngine.gameplay.MouseListen;
 import wolfEngine.graphics.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyListener;
- public class WildWolfEngine 
+
+public class WildWolfEngine 
 {
     public GameGraphics graphics;
     private Graphics g;
-    private KeyListen listenerKey;
+    public KeyListen listenerKey;
     public MouseListen listenerMouse;
 
     public WildWolfEngine() 

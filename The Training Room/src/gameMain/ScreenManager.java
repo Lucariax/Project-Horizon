@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 public class ScreenManager
 {
     private int x, y;
-    private BufferedImage displayedImage;
+    private static BufferedImage displayedImage;
     private String currentScreen;
     public ScreenManager(int x, int y)
     {
@@ -24,10 +24,13 @@ public class ScreenManager
         y = newY;
     }
 
-    public void setScreen() {
-        switch(currentScreen)
+    public static void setScreen(boolean enterPressed, String buttonSwitch) {
+        switch(buttonSwitch)
         {
             case "Title Screen":
+            if(enterPressed) {
+                buttonSwitch = "Register-Main";
+            }
                 displayedImage = ImageStorage.titleScreen;
             break;
 

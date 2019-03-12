@@ -11,7 +11,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Container;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -104,7 +103,7 @@ public final class GameGraphics implements ImageObserver {
 	public static final int PIXEL_BLUE = 0x000000ff; // rgb integer for 100% blue
 	public static final int PIXEL_GREEN = 0x0000ff00; // rgb integer for 100% green
 	public static final int PIXEL_RED = 0x00ff0000; // rgb integer for 100% red
-	private static final String VERSION = "v1.0";
+	//private static final String VERSION = "v1.0";
 	private static final String ABOUT_MESSAGE = "   Programmers:  \n"
 			+ "Joshua M. Ingerowski\n"
 			+ "   Alek J. Ahrens   \n\n"
