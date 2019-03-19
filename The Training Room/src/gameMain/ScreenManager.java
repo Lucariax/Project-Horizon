@@ -1,14 +1,21 @@
 package gameMain;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+
+import wolfEngine.WildWolfEngine;
 public class ScreenManager
 {
     private int x, y;
-    private static BufferedImage displayedImage;
+    private WildWolfEngine engine;
+    public BufferedImage displayedImage;
     private String currentScreen;
+    private ImageStorage ims = new ImageStorage();
+    public static String baseImageLocation = ".\\The Training Room\\src\\ImageLocation\\";
+    
     public ScreenManager(int x, int y)
     {
-        displayedImage = ImageStorage.titleScreen;
+        engine = Main.getEngine();
         currentScreen = "Title Screen";
         this.x = x;
         this.y = y;
@@ -24,19 +31,22 @@ public class ScreenManager
         y = newY;
     }
 
-    public static void setScreen(boolean enterPressed, String buttonSwitch) {
+    public void setScreen(boolean enterPressed, String buttonSwitch) {
+        ims.setImages();
         switch(buttonSwitch)
         {
             case "Title Screen":
             if(enterPressed) {
                 buttonSwitch = "Register-Main";
             }
-                displayedImage = ImageStorage.titleScreen;
+                displayedImage = ims.titleScreen;
             break;
 
             case "Register-Main":
-                displayedImage = ImageStorage.registerMain;
+                displayedImage = ims.registerMain;
             break;
         }
-    } 
+        System.out.println(displayedImage == null);
+        //engine.drawImage(ims.registerMain);
+    }
 }

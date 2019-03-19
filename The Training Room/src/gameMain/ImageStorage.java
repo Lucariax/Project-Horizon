@@ -6,24 +6,30 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public interface ImageStorage {
-	public static final String baseImageLocation = ".//ImageLocation//";
+public class ImageStorage {
+	public static String baseImageLocation;
+	BufferedImage titleScreen = null;
+	BufferedImage registerMain = null;
+
+	public ImageStorage() {
+		baseImageLocation = ".\\The Training Room\\src\\ImageLocation\\";
+	}
+	
 	// All of the variables in here must follow the above format ^
 
 	// ALL IMAGE FILES MUST BE IN THE .PNG FORMAT!
-	BufferedImage titleScreen = null;
-	File titleScreenLocation = new File(baseImageLocation + "titleScreen.png") {{
-	try
-	{
-		ImageIO.read(titleScreenLocation);
-	} catch(IOException e) {}
-	}};
+	public void setImages() {
+		//System.out.println(registerMain == null);
+		try
+		{
+			registerMain = ImageIO.read(new File(baseImageLocation + "registerMain.png"));
+			//System.out.println(registerMain == null);
+		} catch(IOException e) {};
 
-	BufferedImage registerMain = null;
-	File registerMainLocation = new File(baseImageLocation + "registerMain.png") {{
-	try
-	{
-		ImageIO.read(registerMainLocation);
-	} catch(IOException e) {}
-	}};
+		try
+		{
+			titleScreen = ImageIO.read(new File(baseImageLocation + "titleScreen.png"));
+		} catch(IOException e) {};
+		//System.out.println(registerMain == null);
+	}
 }

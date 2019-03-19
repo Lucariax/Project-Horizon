@@ -20,6 +20,7 @@ public class MouseListen {
             {
                 x = e.getX();
                 y = e.getY();
+                //System.out.println("X: " + x + "Y: " + y);
             }
 
             @Override
