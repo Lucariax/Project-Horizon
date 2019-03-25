@@ -13,7 +13,7 @@ import gameMain.ScreenManager;
 public class WildWolfEngine 
 {
     private static boolean isStarted;
-    public GameGraphics graphics;
+    public static GameGraphics graphics;
     public Graphics g;
     public KeyListen listenerKey;
     public MouseListen listenerMouse;
@@ -23,7 +23,7 @@ public class WildWolfEngine
     {
         screenManage = new ScreenManager(0, 0);
         isStarted = false;
-        graphics = new GameGraphics(960, 540);
+        graphics = new GameGraphics(1120, 630);
         g = graphics.getGraphics();
         listenerMouse = new MouseListen(graphics);
         listenerKey = new KeyListen(graphics);

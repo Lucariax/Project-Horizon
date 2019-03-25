@@ -10,6 +10,7 @@ public class ImageStorage {
 	public static String baseImageLocation;
 	BufferedImage titleScreen = null;
 	BufferedImage registerMain = null;
+	BufferedImage wildWolfEngine = null;
 
 	public ImageStorage() {
 		baseImageLocation = ".\\The Training Room\\src\\ImageLocation\\";
@@ -31,5 +32,10 @@ public class ImageStorage {
 			titleScreen = ImageIO.read(new File(baseImageLocation + "titleScreen.png"));
 		} catch(IOException e) {};
 		//System.out.println(registerMain == null);
+
+		try
+		{
+			wildWolfEngine = ImageIO.read(new File(baseImageLocation + "wildWolfEngine.png"));
+		} catch(IOException e) {};
 	}
 }

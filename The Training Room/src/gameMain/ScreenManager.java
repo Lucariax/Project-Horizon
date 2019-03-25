@@ -7,7 +7,6 @@ import wolfEngine.WildWolfEngine;
 public class ScreenManager
 {
     private int x, y;
-    private WildWolfEngine engine;
     public BufferedImage displayedImage;
     private String currentScreen;
     private ImageStorage ims = new ImageStorage();
@@ -15,7 +14,6 @@ public class ScreenManager
     
     public ScreenManager(int x, int y)
     {
-        engine = Main.getEngine();
         currentScreen = "Title Screen";
         this.x = x;
         this.y = y;
@@ -46,7 +44,7 @@ public class ScreenManager
                 displayedImage = ims.registerMain;
             break;
         }
-        System.out.println(displayedImage == null);
-        //engine.drawImage(ims.registerMain);
+        //System.out.println(displayedImage == null);
+        Main.engine.drawImage(ims.wildWolfEngine);
     }
 }
