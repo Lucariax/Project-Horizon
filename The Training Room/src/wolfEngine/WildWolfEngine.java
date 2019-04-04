@@ -43,10 +43,9 @@ public class WildWolfEngine
         g.drawImage(image, x, y, null);
     }
     public void runGame() {
-        System.out.println(listenerKey.getKey());
         while(true)
         {
-            
+            System.out.println(listenerKey.getKey());
             if(runOnce < 1) {
                 runOnce++;
                 screenManage.openingSequence();
