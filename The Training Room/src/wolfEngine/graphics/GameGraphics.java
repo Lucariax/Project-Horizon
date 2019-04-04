@@ -1,6 +1,5 @@
 package wolfEngine.graphics;
 
-import java.io.File;
 import java.awt.FontMetrics;
 import java.awt.Rectangle;
 import java.awt.Shape;
@@ -966,31 +965,6 @@ public final class GameGraphics implements ImageObserver {
 	 * Takes the current contents of the drawing panel and writes them to the given
 	 * file.
 	 */
-
-	public void readPDF(){
-		  try {
-	
-			if ((new File("c:\\Instruction Manua.pdf")).exists()) {
-	
-				Process p = Runtime
-				   .getRuntime()
-				   .exec("rundll32 url.dll,FileProtocolHandler c:\\Instruction Manua.pdf");
-				p.waitFor();
-					
-			} else {
-	
-				System.out.println("File is not exists");
-	
-			}
-	
-			System.out.println("Done");
-	
-			} catch (Exception ex) {
-		  }
-	
-		}
-	
-
 	public void save(String filename) throws IOException {
 		BufferedImage image2 = getImage();
 
@@ -1330,9 +1304,6 @@ public final class GameGraphics implements ImageObserver {
 		JMenuItem about = new JMenuItem("About...", 'A');
 		about.addActionListener(actionListener);
 
-		JMenuItem instrutions = new JMenuItem("How to play");
-		instrutions.addActionListener(actionListener);
-
 		JMenu file = new JMenu("File");
 		file.setMnemonic('F');
 		file.add(compareURL);
@@ -1354,8 +1325,6 @@ public final class GameGraphics implements ImageObserver {
 		JMenu help = new JMenu("Help");
 		help.setMnemonic('H');
 		help.add(about);
-		help.add(instrutions);
-		
 
 		JMenuBar bar = new JMenuBar();
 		bar.add(file);
@@ -1610,9 +1579,6 @@ public final class GameGraphics implements ImageObserver {
 			} else if (e.getActionCommand().equals("About...")) {
 				JOptionPane.showMessageDialog(frame, ABOUT_MESSAGE, ABOUT_MESSAGE_TITLE,
 						JOptionPane.INFORMATION_MESSAGE);
-			} else if (e.getActionCommand().equals("How to play")) {
-				readPDF();
-
 			}
 		}
 	}
