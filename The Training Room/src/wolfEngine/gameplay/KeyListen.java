@@ -6,10 +6,10 @@ import java.awt.event.KeyListener;
 import wolfEngine.graphics.GameGraphics;
 
 public class KeyListen {
-    private String key;
+    private int key;
     public KeyListen(GameGraphics p)
     {
-        key = "";
+        key = 0;
         p.addKeyListener(new KeyListener(){
         
             @Override
@@ -24,16 +24,16 @@ public class KeyListen {
         
             @Override
             public void keyPressed(KeyEvent e) {
-                key = "" + e.getKeyChar();
+                key = e.getKeyCode();
             }
         });
     }
 
-    public String getKey() {
+    public int getKey() {
         return key;
     }
     
     public void resetKey() {
-        key ="";
+        key = 0;
     }
 }
