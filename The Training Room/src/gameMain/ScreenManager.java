@@ -38,7 +38,7 @@ public class ScreenManager
     public void drawMain() {
         ims.setImages();
         displayedImage = ims.registerMain;
-        Main.engine.drawImage(displayedImage);
+        Main.engine.drawImage(displayedImage, 0, 0);
     }
 
     public void openingSequence() {
