@@ -30,12 +30,17 @@ public class WildWolfEngine
         screenManage = new ScreenManager(0, 0);
         isStarted = false;
         graphics = new GameGraphics(1120, 630);
+        graphics.setBackground(Color.BLACK);
         g = graphics.getGraphics();
         listenerMouse = new MouseListen(graphics);
         listenerKey = new KeyListen(graphics);
     }
     public void drawImage(BufferedImage image) {
         g.drawImage(image, 0, 0, null);
+    }
+
+    public void drawImage(BufferedImage image, int x, int y) {
+        g.drawImage(image, x, y, null);
     }
     public void runGame() {
         while(true)

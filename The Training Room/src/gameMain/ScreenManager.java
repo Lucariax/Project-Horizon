@@ -43,6 +43,9 @@ public class ScreenManager
 
     public void openingSequence() {
         ims.setImages();
+        displayedImage = ims.nitroviumLogo;
+        Main.engine.drawImage(displayedImage, 200, 0);
+        Main.engine.graphics.sleep(5000);
         displayedImage = ims.wildWolfEngine;
         Main.engine.drawImage(displayedImage);
         if(hasPlayed < 1) {

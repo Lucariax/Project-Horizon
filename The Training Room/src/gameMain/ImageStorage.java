@@ -11,6 +11,7 @@ public class ImageStorage {
 	BufferedImage titleScreen = null;
 	BufferedImage registerMain = null;
 	BufferedImage wildWolfEngine = null;
+	BufferedImage nitroviumLogo = null;
 
 	public ImageStorage() {
 		baseImageLocation = ".\\The Training Room\\src\\ImageLocation\\";
@@ -36,6 +37,11 @@ public class ImageStorage {
 		try
 		{
 			wildWolfEngine = ImageIO.read(new File(baseImageLocation + "wildWolfEngine.png"));
+		} catch(IOException e) {};
+
+		try
+		{
+			nitroviumLogo = ImageIO.read(new File(baseImageLocation + "nitroviumLogo.png"));
 		} catch(IOException e) {};
 	}
 }
