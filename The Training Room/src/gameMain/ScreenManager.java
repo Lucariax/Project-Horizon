@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 
-import wolfEngine.WildWolfEngine;
 public class ScreenManager
 {
     private String version = "Indev v0.0.1";

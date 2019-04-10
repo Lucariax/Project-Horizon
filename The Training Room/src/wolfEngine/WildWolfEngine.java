@@ -67,42 +67,45 @@ public class WildWolfEngine
     public void scrollRead(String n) {
         int startX = 105;
         int startY = 25;
+        int wordLength = 0;
+        String[] newN = n.split(" ");
         g.setFont(new Font("Descrip", Font.PLAIN, 20));
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 520, 100);
         g.setColor(Color.WHITE);
-        for(int i = 0; i < n.length(); i++) {
-            String newWord = n.substring(i, n.indexOf(" "));
-            int wordLength = 0;
-            for(int j = 0; j < newWord.length(); j++) {
-                getCharLength(newWord.substring(j, j + 1));
+
+        for(String s: newN) {
+            if(!newN[newN.length - 1].equalsIgnoreCase(s)) {
+                s += " ";
             }
-            if(wordLength + startX >= 500 ) {
-                startX += 500 - startX;
+            for(int j = 0; j < s.length(); j++) {
+                wordLength += getCharLength(s.charAt(j));
             }
-            g.drawString(n.substring(i, i + 1), startX, startY);
-            startX += getCharLength(n.substring(i, i + 1));
-            graphics.sleep(50);
             if(startX >= 500) {
                 startX = 105;
                 startY += 25;
             }
+            for(char t: s.toCharArray()) {
+                g.drawString(t + "", startX, startY);
+                startX += getCharLength(t);
+                graphics.sleep(50);
+            }
         }
     }
 
-    private int getCharLength(String d) {
+    private int getCharLength(char d) {
         switch(d) {
-            case "a": case "b": case "c": case "d":   case "g": case "h":   case "k": case "o": case "e": case "u": case "v": case "q": case "p":  case "s": case "z":
+            case 'a': case 'b': case 'c': case 'd':   case 'g': case 'h':   case 'k': case 'o': case 'e': case 'u': case 'v': case 'q': case 'p':  case 's': case 'z':
                 return 13;
-             case "t": case "f":
+             case 't': case 'f':
                 return 8;
-            case "w": case "x": case "y":    case "n":
+            case 'w': case 'x': case 'y': case 'n':
                 return 15;
-            case "l": case "i": case "j":
+            case 'l': case 'i': case 'j':
                 return 6;
-            case "m":
+            case 'm':
                 return 17;
-            case "r":
+            case 'r':
                 return 10;
 
 
@@ -110,14 +113,14 @@ public class WildWolfEngine
 
 
 
-             case "B":  case "D":  case "F":    case "J": 
+             case 'B':  case 'D':  case 'F':    case 'J': 
                 return 12;
 
-            case "L":  case "O": case "P": case "Q": case "R": case "S": case "T": case "U": case "V": case "E": case "H": case "C": case "K": case "A": case "Z": case "G":
+            case 'L':  case 'O': case 'P': case 'Q': case 'R': case 'S': case 'T': case 'U': case 'V': case 'E': case 'H': case 'C': case 'K': case 'A': case 'Z': case 'G':
                 return 15;
-            case "W": case "X": case "Y":  case "M": case "N":
+            case 'W': case 'X': case 'Y':  case 'M': case 'N':
                 return 20;
-            case "I":
+            case 'I':
                 return 7;
         }
         return 5;
