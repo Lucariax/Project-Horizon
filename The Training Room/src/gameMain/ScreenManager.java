@@ -38,6 +38,8 @@ public class ScreenManager
     public void drawMain() {
         ims.setImages();
         displayedImage = ims.registerMain;
+        Main.engine.graphics.clear();
+        Main.engine.graphics.setBackground(Color.BLACK);
         Main.engine.drawImage(displayedImage, 0, 126);
     }
 

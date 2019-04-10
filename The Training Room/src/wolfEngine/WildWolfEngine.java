@@ -71,7 +71,15 @@ public class WildWolfEngine
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 520, 100);
         g.setColor(Color.WHITE);
-        for(int i = 0; i < n.length(); i++) {
+        for(int i = 0; i < n.length() - 1; i++) {
+            String newWord = n.substring(i, n.indexOf(" "));
+            int wordLength = 0;
+            for(int j = 0; j < newWord.length(); j++) {
+                getCharLength(newWord.substring(j, j + 1));
+            }
+            if(wordLength + startX >= 500 ) {
+                startX += 500 - startX;
+            }
             g.drawString(n.substring(i, i + 1), startX, startY);
             startX += getCharLength(n.substring(i, i + 1));
             graphics.sleep(50);
