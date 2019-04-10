@@ -71,7 +71,7 @@ public class WildWolfEngine
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 520, 100);
         g.setColor(Color.WHITE);
-        for(int i = 0; i < n.length() - 1; i++) {
+        for(int i = 0; i < n.length(); i++) {
             String newWord = n.substring(i, n.indexOf(" "));
             int wordLength = 0;
             for(int j = 0; j < newWord.length(); j++) {
