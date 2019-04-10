@@ -406,7 +406,7 @@ public final class GameGraphics implements ImageObserver {
 
 			panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 			panel.setBackground(backgroundColor);
-			panel.setName("The Training Room");
+			panel.setName("Breakout");
 			panel.setPreferredSize(new Dimension(width, height));
 			imagePanel = new ImagePanel(image);
 			imagePanel.setBackground(backgroundColor);
