@@ -1,5 +1,6 @@
 package wolfEngine.graphics;
 
+import java.awt.Desktop;
 import java.awt.FontMetrics;
 import java.awt.Rectangle;
 import java.awt.Shape;
@@ -1304,6 +1305,9 @@ public final class GameGraphics implements ImageObserver {
 		JMenuItem about = new JMenuItem("About...", 'A');
 		about.addActionListener(actionListener);
 
+		JMenuItem instructions = new JMenuItem("Instructions");
+		instructions.addActionListener(actionListener);
+
 		JMenu file = new JMenu("File");
 		file.setMnemonic('F');
 		file.add(compareURL);
@@ -1325,6 +1329,7 @@ public final class GameGraphics implements ImageObserver {
 		JMenu help = new JMenu("Help");
 		help.setMnemonic('H');
 		help.add(about);
+		help.add(instructions);
 
 		JMenuBar bar = new JMenuBar();
 		bar.add(file);
@@ -1576,6 +1581,17 @@ public final class GameGraphics implements ImageObserver {
 				zoom(1);
 			} else if (e.getActionCommand().equals("Grid Lines")) {
 				setGridLines(((JCheckBoxMenuItem) e.getSource()).isSelected());
+			} else if (e.getActionCommand().equals("Instructions")) {
+
+				if (Desktop.isDesktopSupported()) {
+					try {
+						File myFile = new File(".\\The Training Room\\src\\Instructions\\Instruction Manual.pdf");
+						Desktop.getDesktop().open(myFile);
+						//System.out.println("it works");
+					} catch (IOException ex) {
+						// no application registered for PDFs
+					}
+				}
 			} else if (e.getActionCommand().equals("About...")) {
 				JOptionPane.showMessageDialog(frame, ABOUT_MESSAGE, ABOUT_MESSAGE_TITLE,
 						JOptionPane.INFORMATION_MESSAGE);
