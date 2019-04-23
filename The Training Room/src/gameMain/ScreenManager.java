@@ -7,7 +7,7 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 
 public class ScreenManager {
-    private String version = "Indev v0.0.1";
+    private String version = "Indev v0.0.2";
     private int x, y;
     public BufferedImage displayedImage;
     private String currentScreen;
@@ -38,6 +38,10 @@ public class ScreenManager {
         graphics.clear();
         graphics.setBackground(Color.BLACK);
         Main.engine.drawImage(displayedImage, 0, 126);
+        Main.engine.g.setColor(Color.WHITE);
+        Main.engine.g.fillRect(750, 0, 370, 630);
+        Main.engine.g.setColor(Color.BLACK);
+        
     }
 
     public void openingSequence() {

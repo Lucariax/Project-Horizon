@@ -46,12 +46,13 @@ public class WildWolfEngine
         g.drawImage(image, x, y, null);
     }
     public void runGame() {
+        /*
         while(true) {
             System.out.println(listenerKey.getKey());
             gen.run();
-        }
+        }*/
 
-        /*while(true)
+        while(true)
         {
             System.out.println(listenerKey.getKey());
             if(runOnce < 1) {
@@ -69,7 +70,7 @@ public class WildWolfEngine
             if(enterPress > 0) {
                 screenManage.buttonMode("");
             }
-        } */
+        }
     }
 
     public void scrollRead(String n) {
