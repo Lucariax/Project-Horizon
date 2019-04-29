@@ -8,4 +8,5 @@ public interface SoundStorage {
 
 	// ALL SOUND FILES MUST BE IN THE .WAV FORMAT!
 	Sound wolfHowl = new Sound(baseThemeLocation + "wolfHowl.wav");
+	Sound nitrovium = new Sound(baseThemeLocation + "nitrovium.wav");
 }
