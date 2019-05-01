@@ -54,24 +54,59 @@ public class WildWolfEngine
 
         while(true)
         {
+            // System.out.println(listenerKey.getKey());
+            // if(runOnce < 1) {
+            //     runOnce++;
+            //     screenManage.openingSequence();
+            
+            // }  
+            // if(listenerKey.getKey() == KeyEvent.VK_ENTER && enterPress == 0)
+            // {
+            //     screenManage.drawMain();
+            //     enterPress++;
+            //     graphics.sleep(200);
+            //     scrollRead(NPCStorage.managerPhrases[0]);
+            // }
+            // if(enterPress > 0) {
+            //     screenManage.buttonMode("");
+            // }
             System.out.println(listenerKey.getKey());
             if(runOnce < 1) {
                 runOnce++;
                 screenManage.openingSequence();
             
             }  
-            if(listenerKey.getKey() == KeyEvent.VK_ENTER && enterPress == 0)
-            {
-                screenManage.drawMain();
-                enterPress++;
-                graphics.sleep(200);
-                scrollRead(NPCStorage.managerPhrases[0]);
+
+            if(listenerMouse.getX() >= 85 && listenerMouse.getX() <= 115){
+                if(listenerMouse.getY() >= 150 && listenerMouse.getY() <= 180 && runOnce == 1){
+                    screenManage.drawMain();
+                    enterPress++;
+                    runOnce++;
+                    //System.out.println("Register Button - " + runOnce);
+                    graphics.sleep(200);
+                    
+                    scrollRead(NPCStorage.managerPhrases[0]);
+                }
             }
-            if(enterPress > 0) {
-                screenManage.buttonMode("");
+            else  if(listenerMouse.getX() >= 620 && listenerMouse.getX() <= 650){
+                     if(listenerMouse.getY() >= 150 && listenerMouse.getY() <= 180 && runOnce == 1){
+                         screenManage.drawFloor();
+                         enterPress++;
+                         runOnce++;
+                         //System.out.println("Register Button - " + runOnce);
+                        // graphics.sleep(200);
+                    
+                         //scrollRead(NPCStorage.managerPhrases[0]);
+                }
+                        
+                }
+                if(enterPress > 0) {
+                    screenManage.buttonMode("");
+                }
             }
-        }
-    }
+          }
+        
+    
 
     public void scrollRead(String n) {
         int startX = 105;

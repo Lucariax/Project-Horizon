@@ -4,6 +4,7 @@ import static wolfEngine.WildWolfEngine.graphics;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ScreenManager {
@@ -44,6 +45,26 @@ public class ScreenManager {
         
     }
 
+    public void drawFloor(){
+        ims.setImages();
+        displayedImage = ims.storeFloor;
+        graphics.clear();
+        graphics.setBackground(Color.BLACK);
+        Main.engine.drawImage(displayedImage, 0, 126);
+        Main.engine.g.setColor(Color.WHITE);
+        Main.engine.g.fillRect(750, 0, 370, 630);
+        Main.engine.g.setColor(Color.BLACK);
+    }
+
+    public void drawTwoButtons(){
+        graphics.setBackground(Color.BLACK);
+        Main.engine.g.setColor(Color.GRAY);
+        Main.engine.g.fillRect(85, 150, 30, 30);
+        Main.engine.g.drawString("Register", 85, 195);
+        Main.engine.g.fillRect(620, 150, 30, 30);
+        Main.engine.g.drawString("Floor", 620, 195);
+    }
+
     public void openingSequence() {
         ims.setImages();
         displayedImage = ims.nitroviumLogo;
@@ -61,5 +82,11 @@ public class ScreenManager {
         Main.engine.g.setFont(new Font("Descrip", Font.PLAIN, 14));
         Main.engine.g.setColor(Color.WHITE);
         Main.engine.g.drawString(version, 20, 610);
+
+        Main.engine.graphics.sleep(1000);
+        graphics.clear();
+        drawTwoButtons();
+
+
     }
 }

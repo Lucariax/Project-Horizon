@@ -12,6 +12,7 @@ public class ImageStorage {
 	BufferedImage registerMain = null;
 	BufferedImage wildWolfEngine = null;
 	BufferedImage nitroviumLogo = null;
+	BufferedImage storeFloor = null;
 	public BufferedImage backgroundCharacterGen = null;
 
 	public ImageStorage() {
@@ -43,6 +44,11 @@ public class ImageStorage {
 		try
 		{
 			nitroviumLogo = ImageIO.read(new File(baseImageLocation + "nitroviumLogo.png"));
+		} catch(IOException e) {};
+
+		try
+		{
+			storeFloor = ImageIO.read(new File(baseImageLocation + "storeFloor.png"));
 		} catch(IOException e) {};
 
 		try
