@@ -36,23 +36,34 @@ public class ScreenManager {
     }
 
     public void drawImage(String screen) {
-        if(screen.equals("Sign-In")) {
-            displayedImage = ims.register_signed_in;
-            Main.engine.drawImage(displayedImage, 0, 126);
-            rbm.reset();
-            Main.engine.listenerMouse.reset();
-        } else if(screen.equals("Register-Main")) {
-            displayedImage = ims.register_signed_in;
-            Main.engine.drawImage(displayedImage, 0, 126);
-            rbm.reset();
-            Main.engine.listenerMouse.reset();
-        } else if(screen.equals("Locked")) {
-            displayedImage = ims.registerMain;
-            Main.engine.drawImage(displayedImage, 0, 126);
-            rbm.reset();
-            Main.engine.listenerMouse.reset();
+        switch(screen) {
+            case "Sign-In":
+                displayedImage = ims.register_signed_in;
+                Main.engine.drawImage(displayedImage, 0, 126);
+                rbm.reset();
+                Main.engine.listenerMouse.reset();
+            break;
+            
+            case "Register-Main":
+                displayedImage = ims.register_signed_in;
+                Main.engine.drawImage(displayedImage, 0, 126);
+                rbm.reset();
+                Main.engine.listenerMouse.reset();
+            break;
+
+            case "Locked":
+                displayedImage = ims.registerMain;
+                Main.engine.drawImage(displayedImage, 0, 126);
+                rbm.reset();
+                Main.engine.listenerMouse.reset();
+            break;
+
+            case "Rewards":
+
+            case "ItemAdded":
+
+            case "Checkout":
         }
-        
     }
 
     public void drawMain() {
