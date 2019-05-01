@@ -30,7 +30,8 @@ public class ScreenManager {
     }
 
     public void buttonMode() {
-        currentScreen = rbm.switchToScreen(currentScreen, y, x);
+        rbm.getButton(currentScreen, y, x);
+        currentScreen = rbm.switchToScreen();
         drawImage(currentScreen);
     }
 
@@ -38,15 +39,20 @@ public class ScreenManager {
         if(screen.equals("Sign-In")) {
             displayedImage = ims.register_signed_in;
             Main.engine.drawImage(displayedImage, 0, 126);
+            rbm.reset();
+            Main.engine.listenerMouse.reset();
         } else if(screen.equals("Register-Main")) {
             displayedImage = ims.register_signed_in;
             Main.engine.drawImage(displayedImage, 0, 126);
+            rbm.reset();
+            Main.engine.listenerMouse.reset();
         } else if(screen.equals("Locked")) {
             displayedImage = ims.registerMain;
             Main.engine.drawImage(displayedImage, 0, 126);
+            rbm.reset();
+            Main.engine.listenerMouse.reset();
         }
-        rbm.reset();
-        //Main.engine.listenerMouse.reset();
+        
     }
 
     public void drawMain() {

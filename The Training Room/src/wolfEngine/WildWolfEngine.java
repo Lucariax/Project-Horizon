@@ -10,13 +10,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import gameMain.ScreenManager;
 
 public class WildWolfEngine 
 {
-    private static boolean isStarted;
     public static GameGraphics graphics;
     public Graphics g;
     public KeyListen listenerKey;
@@ -28,7 +26,6 @@ public class WildWolfEngine
     public WildWolfEngine() 
     {
         screenManage = new ScreenManager(0, 0);
-        isStarted = false;
         graphics = new GameGraphics(1120, 630);
         graphics.setBackground(Color.BLACK);
         g = graphics.getGraphics();
@@ -88,7 +85,7 @@ public class WildWolfEngine
             for(char t: s.toCharArray()) {
                 g.drawString(t + "", startX, startY);
                 startX += getCharLength(t);
-                graphics.sleep(50);
+                graphics.sleep(20);
             }
         }
     }

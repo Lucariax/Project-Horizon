@@ -6,12 +6,13 @@ public class RegisterButtonManager
     int xDiff = 84;
     int yStart = 379;
     int yDiff = 61;
-    int column, row;
-
+    int column = 7;
+    int row = 3;
+    String[][] usedButtonList = null;
     String currentScreen;
 
     int[] bPX = {xStart, xStart + xDiff, xStart + 2*xDiff, xStart + 3*xDiff, xStart + 4*xDiff, xStart + 5*xDiff, xStart + 6*xDiff, xStart + 7*xDiff, xStart + 8*xDiff};
-    int[] bPY = {yStart, yStart + yDiff, yStart + 2*yDiff, yStart + 3*yDiff, xStart + 4*yDiff};
+    int[] bPY = {yStart, yStart + yDiff, yStart + 2*yDiff, yStart + 3*yDiff, yStart + 4*yDiff};
 
 
     //Button arrays start from top left and end at bottom right
@@ -36,9 +37,8 @@ public class RegisterButtonManager
     {"BLANK", "BLANK", "Check", "Charge", "0", "BLANK", "BLANK", "BLANK"}};
 
     //String[][] next =
-    public String getButton(String currScreen, int kY, int kX) {
-        String[][] usedButtonList = null;
-        currentScreen = "ERR_NOT_UPDATED";
+    public void getButton(String currScreen, int kY, int kX) {
+        currentScreen = "pizzameme";
         switch(currScreen) {
             case "Title Screen":
                 usedButtonList = null;
@@ -84,19 +84,15 @@ public class RegisterButtonManager
         } else if(bPY[3] < kY && kY <= bPY[4]) {
             row = 3;
         }
-        if(usedButtonList == null) {
-            return "No Button Found";
-        }
-        return usedButtonList[row][column];
     }
 
-    public String switchToScreen(String currScreen, int kY, int kX) {
-        if(getButton(currScreen, kY, kX).equals("Sign On")) {
-            currentScreen = "Register-Main";
-        } else if(getButton(currScreen, kY, kX).equals("Sign Off")) {
-            currentScreen = "Locked";
+    public String switchToScreen() {
+        if(usedButtonList[row][column].equals("Sign On")) {
+            return "Register-Main";
+        } else if(usedButtonList[row][column].equals("Sign Off")) {
+            return "Locked";
         }
-        return currentScreen;
+        return "NO CHANGE";
     }
     public String debugInfo() {
         return "currScreen: " + currentScreen + "\nRow: " + row + " Col: " + column;
