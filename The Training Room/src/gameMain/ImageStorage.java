@@ -12,7 +12,7 @@ public class ImageStorage {
 	BufferedImage registerMain = null;
 	BufferedImage wildWolfEngine = null;
 	BufferedImage nitroviumLogo = null;
-	public BufferedImage backgroundCharacterGen = null;
+	BufferedImage register_signed_in = null;
 
 	public ImageStorage() {
 		baseImageLocation = ".\\The Training Room\\src\\ImageLocation\\";
@@ -47,7 +47,7 @@ public class ImageStorage {
 
 		try
 		{
-			backgroundCharacterGen = ImageIO.read(new File(baseImageLocation + "backgroundCharacterGen.png"));
+			register_signed_in = ImageIO.read(new File(baseImageLocation + "registerMain_signedIn.png"));
 		} catch(IOException e) {};
 	}
 }

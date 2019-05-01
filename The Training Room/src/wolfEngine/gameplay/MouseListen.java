@@ -20,7 +20,7 @@ public class MouseListen {
             {
                 x = e.getX();
                 y = e.getY();
-                System.out.println("X: " + x + "Y: " + y);
+                //System.out.println("X: " + x + "Y: " + y);
             }
 
             @Override
@@ -57,5 +57,10 @@ public class MouseListen {
     public int getY()
     {
         return y;
+    }
+
+    public void reset() {
+        y = 0;
+        x = 0;
     }
 }

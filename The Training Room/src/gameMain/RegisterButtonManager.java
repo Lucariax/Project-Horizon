@@ -2,10 +2,13 @@ package gameMain;
 
 public class RegisterButtonManager
 {
-    int xStart;
-    int xDiff;
-    int yStart, yDiff;
-    String currentScreen = "";
+    int xStart = 8;
+    int xDiff = 84;
+    int yStart = 379;
+    int yDiff = 61;
+    int column, row;
+
+    String currentScreen;
 
     int[] bPX = {xStart, xStart + xDiff, xStart + 2*xDiff, xStart + 3*xDiff, xStart + 4*xDiff, xStart + 5*xDiff, xStart + 6*xDiff, xStart + 7*xDiff, xStart + 8*xDiff};
     int[] bPY = {yStart, yStart + yDiff, yStart + 2*yDiff, yStart + 3*yDiff, xStart + 4*yDiff};
@@ -35,8 +38,7 @@ public class RegisterButtonManager
     //String[][] next =
     public String getButton(String currScreen, int kY, int kX) {
         String[][] usedButtonList = null;
-        int row = -1;
-        int column = -1;
+        currentScreen = "ERR_NOT_UPDATED";
         switch(currScreen) {
             case "Title Screen":
                 usedButtonList = null;
@@ -73,13 +75,13 @@ public class RegisterButtonManager
             column = 7;
         }
 
-        if(bPY[0] <= kX && kX <= bPY[1]) {
+        if(bPY[0] <= kY && kY <= bPY[1]) {
             row = 0;
-        } else if(bPY[1] < kX && kX <= bPY[2]) {
+        } else if(bPY[1] < kY && kY <= bPY[2]) {
             row = 1;
-        } else if(bPY[2] < kX && kX <= bPY[3]) {
+        } else if(bPY[2] < kY && kY <= bPY[3]) {
             row = 2;
-        } else if(bPY[3] < kX && kX <= bPY[4]) {
+        } else if(bPY[3] < kY && kY <= bPY[4]) {
             row = 3;
         }
         if(usedButtonList == null) {
@@ -90,13 +92,18 @@ public class RegisterButtonManager
 
     public String switchToScreen(String currScreen, int kY, int kX) {
         if(getButton(currScreen, kY, kX).equals("Sign On")) {
-            System.out.println(getButton(currScreen, kY, kX).equals("Sign On"));
-            currentScreen = "Sign-In";
-        } else if(getButton(currScreen, kY, kX).equals("Sign On")) {
             currentScreen = "Register-Main";
         } else if(getButton(currScreen, kY, kX).equals("Sign Off")) {
-            currentScreen = "locked";
+            currentScreen = "Locked";
         }
         return currentScreen;
+    }
+    public String debugInfo() {
+        return "currScreen: " + currentScreen + "\nRow: " + row + " Col: " + column;
+    }
+
+    public void reset() {
+        row = 3;
+        column = 7;
     }
 }

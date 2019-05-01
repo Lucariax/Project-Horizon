@@ -7,16 +7,16 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 
 public class ScreenManager {
-    private String version = "Indev v0.0.2";
+    private String version = "Indev v1.0.0";
     private int x, y;
     public BufferedImage displayedImage;
-    private String currentScreen = "";
+    private String currentScreen;
     public ImageStorage ims = new ImageStorage();
     private int hasPlayed = 0;
     public RegisterButtonManager rbm = new RegisterButtonManager();
 
     public ScreenManager(int x, int y) {
-        currentScreen = "Title Screen";
+        currentScreen = "Locked";
         this.x = x;
         this.y = y;
     }
@@ -29,22 +29,24 @@ public class ScreenManager {
         y = newY;
     }
 
-    public void buttonMode(String buttonSwitch) {
+    public void buttonMode() {
         currentScreen = rbm.switchToScreen(currentScreen, y, x);
         drawImage(currentScreen);
     }
 
     public void drawImage(String screen) {
         if(screen.equals("Sign-In")) {
-            displayedImage = ims.wildWolfEngine;
-            Main.engine.drawImage(displayedImage);
+            displayedImage = ims.register_signed_in;
+            Main.engine.drawImage(displayedImage, 0, 126);
         } else if(screen.equals("Register-Main")) {
+            displayedImage = ims.register_signed_in;
+            Main.engine.drawImage(displayedImage, 0, 126);
+        } else if(screen.equals("Locked")) {
             displayedImage = ims.registerMain;
-            Main.engine.drawImage(displayedImage);
-        } else if(screen.equals("locked")) {
-            displayedImage = ims.backgroundCharacterGen;
-            Main.engine.drawImage(displayedImage);
+            Main.engine.drawImage(displayedImage, 0, 126);
         }
+        rbm.reset();
+        //Main.engine.listenerMouse.reset();
     }
 
     public void drawMain() {
@@ -56,7 +58,6 @@ public class ScreenManager {
         Main.engine.g.setColor(Color.WHITE);
         Main.engine.g.fillRect(750, 0, 370, 630);
         Main.engine.g.setColor(Color.BLACK);
-        
     }
 
     public void openingSequence() {

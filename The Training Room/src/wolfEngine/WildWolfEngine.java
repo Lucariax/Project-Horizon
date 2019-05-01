@@ -1,7 +1,6 @@
 package wolfEngine;
 
 import wolfEngine.artificialIntelligence.NPCStorage;
-import wolfEngine.design.characterGen;
 import wolfEngine.gameplay.KeyListen;
 import wolfEngine.gameplay.MouseListen;
 import wolfEngine.graphics.*;
@@ -23,7 +22,6 @@ public class WildWolfEngine
     public KeyListen listenerKey;
     public MouseListen listenerMouse;
     public ScreenManager screenManage;
-    characterGen gen;
 
     private int runOnce = 0, enterPress = 0;
 
@@ -36,7 +34,6 @@ public class WildWolfEngine
         g = graphics.getGraphics();
         listenerMouse = new MouseListen(graphics);
         listenerKey = new KeyListen(graphics);
-        gen = new characterGen(listenerMouse, listenerKey);
     }
     public void drawImage(BufferedImage image) {
         g.drawImage(image, 0, 0, null);
@@ -46,15 +43,8 @@ public class WildWolfEngine
         g.drawImage(image, x, y, null);
     }
     public void runGame() {
-        /*
-        while(true) {
-            System.out.println(listenerKey.getKey());
-            gen.run();
-        }*/
-
         while(true)
         {
-            System.out.println(listenerKey.getKey());
             if(runOnce < 1) {
                 runOnce++;
                 screenManage.openingSequence();
@@ -67,11 +57,10 @@ public class WildWolfEngine
                 graphics.sleep(200);
                 scrollRead(NPCStorage.managerPhrases[0]);
             }
-            if(enterPress > 0) {
-                screenManage.buttonMode("");
-            }
             screenManage.setX(listenerMouse.getX());
             screenManage.setY(listenerMouse.getY());
+            screenManage.buttonMode();
+            screenManage.rbm.debugInfo();
         }
     }
 
