@@ -5,6 +5,7 @@ public class RegisterButtonManager
     int xStart;
     int xDiff;
     int yStart, yDiff;
+    String currentScreen = "";
 
     int[] bPX = {xStart, xStart + xDiff, xStart + 2*xDiff, xStart + 3*xDiff, xStart + 4*xDiff, xStart + 5*xDiff, xStart + 6*xDiff, xStart + 7*xDiff, xStart + 8*xDiff};
     int[] bPY = {yStart, yStart + yDiff, yStart + 2*yDiff, yStart + 3*yDiff, xStart + 4*yDiff};
@@ -15,6 +16,21 @@ public class RegisterButtonManager
     {"Sign Off", "BLANK", "Reserve Online", "PRICE CHECK", "4", "5", "6", "Enter"},
     {"Rewards Customer", "Tax Exempt Customer", "Retreive Customer Order", "BLANK", "1", "2", "3", "Enter"},
     {"Manager Functions", "BLANK", "Resume/Pay", "Charge", "0", "Quantity", "BLANK", "BLANK"}};
+
+    String[][] locked = {{"Close Register","Reprint Last Receipt","BLANK", "BLANK", "7", "8", "9", "Clear"},
+    {"Sign On", "Balance Inquiry", "BLANK", "PRICE CHECK", "4", "5", "6", "Enter"},
+    {"Log Off", "BLANK", "BLANK", "BLANK", "1", "2", "3", "Enter"},
+    {"Manager Functions", "Open Register", "Till Totals", "Charge", "0", "BLANK", "BLANK", "BLANK"}};
+
+    String[][] lockedTypeInID = {{"BLANK","BLANK","BLANK", "BLANK", "7", "8", "9", "Clear"},
+    {"BLANK", "BLANK", "BLANK", "PRICE CHECK", "4", "5", "6", "Enter"},
+    {"BLANK", "BLANK", "BLANK", "BLANK", "1", "2", "3", "Enter"},
+    {"BLANK", "BLANK", "BLANK", "Charge", "0", "BLANK", "BLANK", "BLANK"}};
+
+    String[][] checkout = {{"Additional Item","Staples Coupon","Cash", "Gift Receipt", "7", "8", "9", "Clear"},
+    {"Tax and Rewards Functions", "Manufacturer Coupon", "CAT", "PRICE CHECK", "4", "5", "6", "Enter"},
+    {"Cash/Gift Card Redeemed", "Program Discount", "BLANK", "VOID", "1", "2", "3", "Enter"},
+    {"BLANK", "BLANK", "Check", "Charge", "0", "BLANK", "BLANK", "BLANK"}};
 
     //String[][] next =
     public String getButton(String currScreen, int kY, int kX) {
@@ -28,6 +44,14 @@ public class RegisterButtonManager
 
             case "Register-Main":
                 usedButtonList = mainRegister;
+            break;
+
+            case "Locked":
+                usedButtonList = locked;
+            break;
+
+            case "Sign-In":
+                usedButtonList = lockedTypeInID;
             break;
         }
 
@@ -62,5 +86,17 @@ public class RegisterButtonManager
             return "No Button Found";
         }
         return usedButtonList[row][column];
+    }
+
+    public String switchToScreen(String currScreen, int kY, int kX) {
+        if(getButton(currScreen, kY, kX).equals("Sign On")) {
+            System.out.println(getButton(currScreen, kY, kX).equals("Sign On"));
+            currentScreen = "Sign-In";
+        } else if(getButton(currScreen, kY, kX).equals("Sign On")) {
+            currentScreen = "Register-Main";
+        } else if(getButton(currScreen, kY, kX).equals("Sign Off")) {
+            currentScreen = "locked";
+        }
+        return currentScreen;
     }
 }

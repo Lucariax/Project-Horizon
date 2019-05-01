@@ -10,9 +10,10 @@ public class ScreenManager {
     private String version = "Indev v0.0.2";
     private int x, y;
     public BufferedImage displayedImage;
-    private String currentScreen;
+    private String currentScreen = "";
     public ImageStorage ims = new ImageStorage();
     private int hasPlayed = 0;
+    public RegisterButtonManager rbm = new RegisterButtonManager();
 
     public ScreenManager(int x, int y) {
         currentScreen = "Title Screen";
@@ -29,7 +30,21 @@ public class ScreenManager {
     }
 
     public void buttonMode(String buttonSwitch) {
+        currentScreen = rbm.switchToScreen(currentScreen, y, x);
+        drawImage(currentScreen);
+    }
 
+    public void drawImage(String screen) {
+        if(screen.equals("Sign-In")) {
+            displayedImage = ims.wildWolfEngine;
+            Main.engine.drawImage(displayedImage);
+        } else if(screen.equals("Register-Main")) {
+            displayedImage = ims.registerMain;
+            Main.engine.drawImage(displayedImage);
+        } else if(screen.equals("locked")) {
+            displayedImage = ims.backgroundCharacterGen;
+            Main.engine.drawImage(displayedImage);
+        }
     }
 
     public void drawMain() {

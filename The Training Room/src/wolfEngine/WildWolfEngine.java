@@ -70,6 +70,8 @@ public class WildWolfEngine
             if(enterPress > 0) {
                 screenManage.buttonMode("");
             }
+            screenManage.setX(listenerMouse.getX());
+            screenManage.setY(listenerMouse.getY());
         }
     }
 
