@@ -2,9 +2,9 @@ package wolfEngine.artificialIntelligence;
 
 import java.awt.image.BufferedImage;
 
-public interface NPCStorage {
-    String[] managerPhrases = {"Welcome to Normal Co! I'm your new manager Aaron. Let's get started training on your first day!",
-                                "",
+public class NPCStorage {
+    static public String[] managerPhrases = {"Welcome to Normal Co! I'm your new manager Aaron. Let's get started training on your first day!",
+                                "Hit the \"Sign On\" button to get started.",
                                 "",
                                 ""
 };
@@ -42,4 +42,32 @@ String[] employeePhrases = {"Sell anything good today?",
 
     DynamicNPC employeeman1 = new DynamicNPC("Alex", employeePhrases, NPCImage);
     DynamicNPC employeeman2 = new DynamicNPC("Will", employeePhrases, NPCImage);
+
+    public DynamicNPC pickCustomer() {
+        int rando = (int)(10*Math.random() + 1);
+
+        switch(rando) {
+            case 1:
+                return woman1;
+            case 2:
+                return man1;
+            case 3:
+                return woman2;
+            case 4:
+                return man2;
+            case 5:
+                return woman3;
+            case 6:
+                return man3;
+            case 7:
+                return woman4;
+            case 8:
+                return man4;
+            case 9:
+                return woman5;
+            case 10:
+                return man5;
+        }
+        return null;
+    }
 }
