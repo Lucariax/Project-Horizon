@@ -53,6 +53,8 @@ public class WildWolfEngine
                 enterPress++;
                 graphics.sleep(200);
                 scrollRead(NPCStorage.managerPhrases[0]);
+                graphics.sleep(500);
+                scrollRead(NPCStorage.managerPhrases[1]);
             }
             screenManage.setX(listenerMouse.getX());
             screenManage.setY(listenerMouse.getY());
