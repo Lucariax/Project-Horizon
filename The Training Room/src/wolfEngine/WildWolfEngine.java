@@ -53,32 +53,29 @@ public class WildWolfEngine
                 enterPress++;
                 graphics.sleep(200);
                 scrollRead(NPCStorage.managerPhrases[0]);
-                graphics.sleep(500);
+                graphics.sleep(1000);
                 scrollRead(NPCStorage.managerPhrases[1]);
+                graphics.sleep(1000);
+                scrollRead(NPCStorage.managerPhrases[2]);
             }
             screenManage.setX(listenerMouse.getX());
             screenManage.setY(listenerMouse.getY());
             screenManage.buttonMode();
-            screenManage.rbm.debugInfo();
         }
     }
 
     public void scrollRead(String n) {
         int startX = 105;
         int startY = 25;
-        int wordLength = 0;
         String[] newN = n.split(" ");
         g.setFont(new Font("Descrip", Font.PLAIN, 20));
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 520, 100);
+        g.fillRect(0, 0, 605, 100);
         g.setColor(Color.WHITE);
 
         for(String s: newN) {
             if(!newN[newN.length - 1].equalsIgnoreCase(s)) {
                 s += " ";
-            }
-            for(int j = 0; j < s.length(); j++) {
-                wordLength += getCharLength(s.charAt(j));
             }
             if(startX >= 500) {
                 startX = 105;

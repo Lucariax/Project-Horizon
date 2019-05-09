@@ -12,7 +12,7 @@ public class ScreenManager {
     public BufferedImage displayedImage;
     private String currentScreen;
     public ImageStorage ims = new ImageStorage();
-    private int hasPlayed = 0;
+    //private int hasPlayed = 0;
     public RegisterButtonManager rbm = new RegisterButtonManager();
 
     public ScreenManager(int x, int y) {
@@ -74,7 +74,11 @@ public class ScreenManager {
         Main.engine.drawImage(displayedImage, 0, 126);
         Main.engine.g.setColor(Color.WHITE);
         Main.engine.g.fillRect(750, 0, 370, 630);
+        Main.engine.g.setColor(Color.GRAY);
+        Main.engine.g.fillRect(750, 400, 370, 230);
         Main.engine.g.setColor(Color.BLACK);
+        Main.engine.g.setFont(new Font("Def", Font.BOLD, 50));
+        Main.engine.g.drawString("SCAN", 860, 540);
     }
 
     public void openingSequence() {

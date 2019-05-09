@@ -1,18 +1,23 @@
 package wolfEngine.artificialIntelligence;
 
+import java.awt.image.BufferedImage;
+
 public abstract class NPC {
-	private String name;
+	public String[] phrases;
+	public BufferedImage NPCImage;
+	public String name;
 	
-	public NPC(String name) {
+	public NPC(String name, String[] phrases, BufferedImage NPCImage) {
 		this.name = name;
+		this.phrases = phrases;
+		this.NPCImage = NPCImage;
 	}
-	
-	public String getName() {
-		return name;
+
+	public String getPhrase(int pos) {
+		return phrases[pos];
 	}
-	
-	public void setName(String name) {
-		this.name = name;
+
+	public BufferedImage getNPCImage() {
+		return NPCImage;
 	}
-	
 }

@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class NPCStorage {
     static public String[] managerPhrases = {"Welcome to Normal Co! I'm your new manager Aaron. Let's get started training on your first day!",
                                 "Hit the \"Sign On\" button to get started.",
-                                "",
+                                "Now that you've signed on, let's scan an item. Click the scan button on the bottom right side of your screen.",
                                 ""
 };
 
@@ -37,11 +37,11 @@ String[] employeePhrases = {"Sell anything good today?",
     DynamicNPC man5 = new DynamicNPC("Tyrone", customerPhrases, NPCImage);
 
     // Associates
-    DynamicNPC employeefem1 = new DynamicNPC("Aubrey", employeePhrases, NPCImage);
-    DynamicNPC employeefem2 = new DynamicNPC("Emily", employeePhrases, NPCImage);
+    StaticNPC employeefem1 = new StaticNPC("Aubrey", employeePhrases, NPCImage);
+    StaticNPC employeefem2 = new StaticNPC("Emily", employeePhrases, NPCImage);
 
-    DynamicNPC employeeman1 = new DynamicNPC("Alex", employeePhrases, NPCImage);
-    DynamicNPC employeeman2 = new DynamicNPC("Will", employeePhrases, NPCImage);
+    StaticNPC employeeman1 = new StaticNPC("Alex", employeePhrases, NPCImage);
+    StaticNPC employeeman2 = new StaticNPC("Will", employeePhrases, NPCImage);
 
     public DynamicNPC pickCustomer() {
         int rando = (int)(10*Math.random() + 1);

@@ -991,7 +991,6 @@ public final class GameGraphics implements ImageObserver {
 		String extension = filename.substring(lastDot + 1);
 
 		// write file
-		// TODO: doesn't save background color I don't think
 		ImageIO.write(image2, extension, new File(filename));
 	}
 
@@ -1476,7 +1475,6 @@ public final class GameGraphics implements ImageObserver {
 	 * Brings the given window to the front of the Z-ordering.
 	 */
 	private void toFront(final Window window) {
-		// TODO: remove anonymous inner class
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				if (window != null) {

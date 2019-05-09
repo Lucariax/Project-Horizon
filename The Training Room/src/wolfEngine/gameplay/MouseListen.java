@@ -3,7 +3,6 @@ package wolfEngine.gameplay;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import gameMain.Main;
 import wolfEngine.graphics.GameGraphics;
 
 public class MouseListen {

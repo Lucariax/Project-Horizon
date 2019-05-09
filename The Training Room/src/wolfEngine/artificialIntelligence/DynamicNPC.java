@@ -1,21 +1,28 @@
 package wolfEngine.artificialIntelligence;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import wolfEngine.Item;
+import wolfEngine.ItemStorage;
 
 public class DynamicNPC extends NPC {
-	public String[] phrases;
-	public BufferedImage NPCImage;
+	private ArrayList<Item> basket;
+	private ItemStorage itemStore;
+
 	public DynamicNPC(String name, String[] phrases, BufferedImage NPCImage) {
-		super(name);
-		this.phrases = phrases;
-		this.NPCImage = NPCImage;
+		super(name, phrases, NPCImage);
+		basket = new ArrayList<Item>();
+		for(int i = 0; i < (int)(5*Math.random() + 3); i++) {
+			basket.add(itemStore.getRandomItem());
+		}
 	}
 
-	public String getPhrase(int pos) {
-		return phrases[pos];
+	public ArrayList<Item> getBasket() {
+		return basket;
 	}
 
-	public BufferedImage getNPCImage() {
-		return NPCImage;
+	public void removeItem(int pos) {
+		basket.remove(pos);
 	}
 }
