@@ -12,6 +12,7 @@ public class DynamicNPC extends NPC {
 
 	public DynamicNPC(String name, String[] phrases, BufferedImage NPCImage) {
 		super(name, phrases, NPCImage);
+		itemStore = new ItemStorage();
 		basket = new ArrayList<Item>();
 		for(int i = 0; i < (int)(5*Math.random() + 3); i++) {
 			basket.add(itemStore.getRandomItem());
@@ -22,7 +23,11 @@ public class DynamicNPC extends NPC {
 		return basket;
 	}
 
-	public void removeItem(int pos) {
-		basket.remove(pos);
+	public Item removeItem(int pos) {
+		return basket.remove(pos);
+	}
+
+	public int getBasketSize() {
+		return basket.size();
 	}
 }

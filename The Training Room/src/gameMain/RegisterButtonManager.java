@@ -37,7 +37,7 @@ public class RegisterButtonManager
     {"BLANK", "BLANK", "Check", "Charge", "0", "BLANK", "BLANK", "BLANK"}};
 
     //String[][] next =
-    public void getButton(String currScreen, int kY, int kX) {
+    public String getButton(String currScreen, int kY, int kX) {
         currentScreen = "pizzameme";
         switch(currScreen) {
             case "Title Screen":
@@ -84,6 +84,7 @@ public class RegisterButtonManager
         } else if(bPY[3] < kY && kY <= bPY[4]) {
             row = 3;
         }
+        return usedButtonList[row][column];
     }
 
     public String switchToScreen() {

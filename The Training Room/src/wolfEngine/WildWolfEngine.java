@@ -55,13 +55,59 @@ public class WildWolfEngine
                 scrollRead(NPCStorage.managerPhrases[0]);
                 graphics.sleep(1000);
                 scrollRead(NPCStorage.managerPhrases[1]);
-                graphics.sleep(1000);
+                while(!screenManage.rbm.getButton(screenManage.currentScreen, screenManage.y, screenManage.x).equals("Sign On")) {
+                    screenManage.setX(listenerMouse.getX());
+                    screenManage.setY(listenerMouse.getY());
+                }
+                drawItemStrings();
                 scrollRead(NPCStorage.managerPhrases[2]);
+                
+            }
+            /*
+            if(!screenManage.checkout.isEmpty() && screenManage.currNPC.getBasketSize() == 0) {
+                screenManage.newNPC();
+                drawItemStrings();
+            }*/
+
+            if(750 < listenerMouse.getX() && listenerMouse.getX() < 1120 && 400 < listenerMouse.getY() && listenerMouse.getY() < 630) {
+                g.setColor(Color.WHITE);
+                g.fillRect(750, 0, 370, 400);
+                if(!screenManage.currNPC.getBasket().isEmpty()) {
+                    screenManage.checkout.add(screenManage.currNPC.removeItem(0));
+                }
+                listenerMouse.reset();
+                drawItemStrings();
             }
             screenManage.setX(listenerMouse.getX());
             screenManage.setY(listenerMouse.getY());
             screenManage.buttonMode();
         }
+    }
+    public void drawItemStrings() {
+        int startX = 760;
+        int startY = 50;
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Descrip", Font.PLAIN, 20));
+        for(int i = 0; i < screenManage.currNPC.getBasketSize(); i++) {
+            g.drawString(screenManage.currNPC.getBasket().get(i).getName(), startX, (startY + i*25));
+        }
+        startX = 313;
+        startY = 184;
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Descrip", Font.PLAIN, 10));
+        for(int i = 0; i < screenManage.checkout.size(); i++) {
+            g.drawString(screenManage.checkout.get(i).getName() + "                  " + screenManage.checkout.get(i).getPrice(), startX, (startY + i*12));
+        }
+        double total = 0;
+        for(int i = 0; i < screenManage.checkout.size(); i++) {
+            total += screenManage.checkout.get(i).getPrice();
+        }
+        g.setColor(new Color(157, 157, 157));
+        // 633 357
+        g.fillRect(633, 357, 50, 16);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Descrip", Font.PLAIN, 14));
+        g.drawString(total + "", 645, 368);
     }
 
     public void scrollRead(String n) {

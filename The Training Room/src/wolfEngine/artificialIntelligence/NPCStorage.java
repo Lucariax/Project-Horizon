@@ -2,7 +2,12 @@ package wolfEngine.artificialIntelligence;
 
 import java.awt.image.BufferedImage;
 
+import gameMain.ImageStorage;
+
 public class NPCStorage {
+    public NPCStorage() {
+        
+    }
     static public String[] managerPhrases = {"Welcome to Normal Co! I'm your new manager Aaron. Let's get started training on your first day!",
                                 "Hit the \"Sign On\" button to get started.",
                                 "Now that you've signed on, let's scan an item. Click the scan button on the bottom right side of your screen.",
@@ -20,7 +25,8 @@ String[] employeePhrases = {"Sell anything good today?",
                                 "",
                                 ""
 };
-    BufferedImage NPCImage = null;
+    ImageStorage ims = new ImageStorage();
+    BufferedImage NPCImage = ims.titleScreen;
     DynamicNPC manager = new DynamicNPC("Aaron", managerPhrases, NPCImage);
 
     // Customers

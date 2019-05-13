@@ -5,20 +5,30 @@ import static wolfEngine.WildWolfEngine.graphics;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import wolfEngine.Item;
+import wolfEngine.artificialIntelligence.DynamicNPC;
+import wolfEngine.artificialIntelligence.NPCStorage;
 
 public class ScreenManager {
     private String version = "Indev v1.0.0";
-    private int x, y;
+    public int x, y;
     public BufferedImage displayedImage;
-    private String currentScreen;
+    public String currentScreen;
     public ImageStorage ims = new ImageStorage();
     //private int hasPlayed = 0;
     public RegisterButtonManager rbm = new RegisterButtonManager();
+    public ArrayList<Item> checkout;
+    public DynamicNPC currNPC;
+    public NPCStorage nps = new NPCStorage();
 
-    public ScreenManager(int x, int y) {
+    public ScreenManager(int x, int y) { 
+        checkout = new ArrayList<Item>();
         currentScreen = "Locked";
         this.x = x;
         this.y = y;
+        currNPC = nps.pickCustomer();
     }
 
     public void setX(int newX) {
@@ -98,5 +108,13 @@ public class ScreenManager {
         Main.engine.g.setFont(new Font("Descrip", Font.PLAIN, 14));
         Main.engine.g.setColor(Color.WHITE);
         Main.engine.g.drawString(version, 20, 610);
+    }
+
+    public void manageItems() {
+
+    }
+
+    public void newNPC() {
+        currNPC = nps.pickCustomer();
     }
 }

@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 public class ImageStorage {
 	public static String baseImageLocation;
-	BufferedImage titleScreen = null;
+	public BufferedImage titleScreen = null;
 	BufferedImage registerMain = null;
 	BufferedImage wildWolfEngine = null;
 	BufferedImage nitroviumLogo = null;
