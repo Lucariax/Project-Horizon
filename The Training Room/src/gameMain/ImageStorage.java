@@ -8,14 +8,32 @@ import javax.imageio.ImageIO;
 
 public class ImageStorage {
 	public static String baseImageLocation;
+	public static String baseImageLocationP;
 	public BufferedImage titleScreen = null;
 	BufferedImage registerMain = null;
 	BufferedImage wildWolfEngine = null;
 	BufferedImage nitroviumLogo = null;
 	BufferedImage register_signed_in = null;
 
+	BufferedImage male_worker= null;
+	BufferedImage male_worker_2 = null;
+	BufferedImage female_worker= null;
+	BufferedImage female_worker_2 = null;
+	BufferedImage girl_1 = null;
+	BufferedImage girl_2 = null;
+	BufferedImage girl_3 = null;
+	BufferedImage girl_4 = null;
+	BufferedImage girl_5 = null;
+	BufferedImage guy_1 = null;
+	BufferedImage guy_2 = null;
+	BufferedImage guy_3 = null;
+	BufferedImage guy_4 = null;
+	BufferedImage guy_5 = null;
+	BufferedImage manager = null;
+
 	public ImageStorage() {
 		baseImageLocation = ".\\The Training Room\\src\\ImageLocation\\";
+		baseImageLocationP = ".\\The Training Room\\src\\People\\";
 	}
 	
 	// All of the variables in here must follow the above format ^
@@ -49,5 +67,69 @@ public class ImageStorage {
 		{
 			register_signed_in = ImageIO.read(new File(baseImageLocation + "registerMain_signedIn.png"));
 		} catch(IOException e) {};
+
+		// NPC Images
+
+		try
+		{
+			male_worker = ImageIO.read(new File(baseImageLocationP + "male_worker.png"));
+		} catch(IOException e) {};
+		try
+		{
+			male_worker_2 = ImageIO.read(new File(baseImageLocationP + "male_worker_2.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+		try
+		{
+			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
+		} catch(IOException e) {};
+
 	}
 }
