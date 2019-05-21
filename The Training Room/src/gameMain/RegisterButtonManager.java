@@ -21,6 +21,11 @@ public class RegisterButtonManager
     {"Rewards Customer", "Tax Exempt Customer", "Retreive Customer Order", "BLANK", "1", "2", "3", "Enter"},
     {"Manager Functions", "BLANK", "Resume/Pay", "Charge", "0", "Quantity", "BLANK", "BLANK"}};
 
+    String[][] mainRegisterTOTAL = {{"Begin Return","Modify Return","Reprint Last Receipt", "Gift Card Services", "7", "8", "9", "Clear"},
+    {"Sign Off", "BLANK", "Reserve Online", "PRICE CHECK", "4", "5", "6", "Enter"},
+    {"Rewards Customer", "Tax Exempt Customer", "Retreive Customer Order", "BLANK", "1", "2", "3", "Enter"},
+    {"Manager Functions", "BLANK", "Resume/Pay", "Charge", "0", "Quantity", "BLANK", "TOTAL"}};
+
     String[][] locked = {{"Close Register","Reprint Last Receipt","BLANK", "BLANK", "7", "8", "9", "Clear"},
     {"Sign On", "Balance Inquiry", "BLANK", "PRICE CHECK", "4", "5", "6", "Enter"},
     {"Log Off", "BLANK", "BLANK", "BLANK", "1", "2", "3", "Enter"},
@@ -95,6 +100,7 @@ public class RegisterButtonManager
         }
         return "NO CHANGE";
     }
+
     public String debugInfo() {
         return "currScreen: " + currentScreen + "\nRow: " + row + " Col: " + column;
     }

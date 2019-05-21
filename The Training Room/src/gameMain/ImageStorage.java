@@ -78,6 +78,7 @@ public class ImageStorage {
 		{
 			male_worker_2 = ImageIO.read(new File(baseImageLocationP + "male_worker_2.png"));
 		} catch(IOException e) {};
+		/*
 		try
 		{
 			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
@@ -130,6 +131,6 @@ public class ImageStorage {
 		{
 			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
 		} catch(IOException e) {};
-
+		*/
 	}
 }

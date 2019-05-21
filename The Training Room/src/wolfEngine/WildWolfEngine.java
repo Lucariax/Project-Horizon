@@ -21,7 +21,7 @@ public class WildWolfEngine
     public MouseListen listenerMouse;
     public ScreenManager screenManage;
 
-    private int runOnce = 0, enterPress = 0;
+    private int runOnce = 0, enterPress = 0, anotherRunOnce = 0;
 
     public WildWolfEngine() 
     {
@@ -68,6 +68,9 @@ public class WildWolfEngine
                 screenManage.newNPC();
                 drawItemStrings();
             }*/
+            if(anotherRunOnce == 0 && 750 < listenerMouse.getX() && listenerMouse.getX() < 1120 && 400 < listenerMouse.getY() && listenerMouse.getY() < 630) {
+                //screenManage.rbm. (Make a new method that can set a new screen at a whim)
+            }
 
             if(750 < listenerMouse.getX() && listenerMouse.getX() < 1120 && 400 < listenerMouse.getY() && listenerMouse.getY() < 630) {
                 g.setColor(Color.WHITE);
@@ -107,7 +110,7 @@ public class WildWolfEngine
         g.fillRect(633, 357, 50, 16);
         g.setColor(Color.BLACK);
         g.setFont(new Font("Descrip", Font.PLAIN, 14));
-        g.drawString(total + "", 645, 368);
+        g.drawString(String.format("%.2f", total) + "", 645, 368);
     }
 
     public void scrollRead(String n) {
