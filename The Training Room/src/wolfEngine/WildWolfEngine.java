@@ -21,7 +21,7 @@ public class WildWolfEngine
     public MouseListen listenerMouse;
     public ScreenManager screenManage;
 
-    private int runOnce = 0, enterPress = 0, anotherRunOnce = 0;
+    private int runOnce = 0, enterPress = 0;
 
     public WildWolfEngine() 
     {
@@ -45,8 +45,8 @@ public class WildWolfEngine
             if(runOnce < 1) {
                 runOnce++;
                 screenManage.openingSequence();
-            
-            }  
+            }
+             
             if(listenerKey.getKey() == KeyEvent.VK_ENTER && enterPress == 0)
             {
                 screenManage.drawMain();
@@ -61,15 +61,6 @@ public class WildWolfEngine
                 }
                 drawItemStrings();
                 scrollRead(NPCStorage.managerPhrases[2]);
-                
-            }
-            /*
-            if(!screenManage.checkout.isEmpty() && screenManage.currNPC.getBasketSize() == 0) {
-                screenManage.newNPC();
-                drawItemStrings();
-            }*/
-            if(anotherRunOnce == 0 && 750 < listenerMouse.getX() && listenerMouse.getX() < 1120 && 400 < listenerMouse.getY() && listenerMouse.getY() < 630) {
-                //screenManage.rbm. (Make a new method that can set a new screen at a whim)
             }
 
             if(750 < listenerMouse.getX() && listenerMouse.getX() < 1120 && 400 < listenerMouse.getY() && listenerMouse.getY() < 630) {
@@ -81,6 +72,43 @@ public class WildWolfEngine
                 listenerMouse.reset();
                 drawItemStrings();
             }
+            if(screenManage.currentScreen.equals("PayTime") && enterPress == 1) {
+                drawItemStrings();
+                enterPress++;
+            }
+
+            if(screenManage.rbm.getButtonName().equals("CAT")) {
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Descrip", Font.PLAIN, 20));
+                g.drawString("Processing card payment...", 760, 400);
+                graphics.sleep(200);
+                screenManage.checkout.clear();
+                g.drawString("Reciept printed. Customer has left.", 760, 450);
+                graphics.sleep(200);
+                screenManage.currNPC = screenManage.nps.pickCustomer();
+                screenManage.drawImage("Register-Main");
+            } else if(screenManage.rbm.getButtonName().equals("CASH")) {
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Descrip", Font.PLAIN, 20));
+                g.drawString("Processing cash payment...", 760, 400);
+                graphics.sleep(200);
+                g.drawString("Reciept printed. Customer has left.", 760, 450);
+                graphics.sleep(200);
+                screenManage.checkout.clear();
+                screenManage.currNPC = screenManage.nps.pickCustomer();
+                screenManage.drawImage("Register-Main");
+            } else if(screenManage.rbm.getButtonName().equals("CHECK")) {
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Descrip", Font.PLAIN, 20));
+                g.drawString("Processing check payment...", 760, 400);
+                graphics.sleep(200);
+                g.drawString("Reciept printed. Customer has left.", 760, 450);
+                graphics.sleep(200);
+                screenManage.checkout.clear();
+                screenManage.currNPC = screenManage.nps.pickCustomer();
+                screenManage.drawImage("Register-Main");
+            }
+
             screenManage.setX(listenerMouse.getX());
             screenManage.setY(listenerMouse.getY());
             screenManage.buttonMode();
@@ -106,7 +134,6 @@ public class WildWolfEngine
             total += screenManage.checkout.get(i).getPrice();
         }
         g.setColor(new Color(157, 157, 157));
-        // 633 357
         g.fillRect(633, 357, 50, 16);
         g.setColor(Color.BLACK);
         g.setFont(new Font("Descrip", Font.PLAIN, 14));

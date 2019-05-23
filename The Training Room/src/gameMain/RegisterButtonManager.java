@@ -19,12 +19,7 @@ public class RegisterButtonManager
     String[][] mainRegister = {{"Begin Return","Modify Return","Reprint Last Receipt", "Gift Card Services", "7", "8", "9", "Clear"},
     {"Sign Off", "BLANK", "Reserve Online", "PRICE CHECK", "4", "5", "6", "Enter"},
     {"Rewards Customer", "Tax Exempt Customer", "Retreive Customer Order", "BLANK", "1", "2", "3", "Enter"},
-    {"Manager Functions", "BLANK", "Resume/Pay", "Charge", "0", "Quantity", "BLANK", "BLANK"}};
-
-    String[][] mainRegisterTOTAL = {{"Begin Return","Modify Return","Reprint Last Receipt", "Gift Card Services", "7", "8", "9", "Clear"},
-    {"Sign Off", "BLANK", "Reserve Online", "PRICE CHECK", "4", "5", "6", "Enter"},
-    {"Rewards Customer", "Tax Exempt Customer", "Retreive Customer Order", "BLANK", "1", "2", "3", "Enter"},
-    {"Manager Functions", "BLANK", "Resume/Pay", "Charge", "0", "Quantity", "BLANK", "TOTAL"}};
+    {"Manager Functions", "BLANK", "Resume/Pay", "Charge", "0", "Quantity", "BLANK", "Total"}};
 
     String[][] locked = {{"Close Register","Reprint Last Receipt","BLANK", "BLANK", "7", "8", "9", "Clear"},
     {"Sign On", "Balance Inquiry", "BLANK", "PRICE CHECK", "4", "5", "6", "Enter"},
@@ -36,7 +31,7 @@ public class RegisterButtonManager
     {"BLANK", "BLANK", "BLANK", "BLANK", "1", "2", "3", "Enter"},
     {"BLANK", "BLANK", "BLANK", "Charge", "0", "BLANK", "BLANK", "BLANK"}};
 
-    String[][] checkout = {{"Additional Item","Staples Coupon","Cash", "Gift Receipt", "7", "8", "9", "Clear"},
+    String[][] checkout = {{"Additional Item","Normal Co Coupon","Cash", "Gift Receipt", "7", "8", "9", "Clear"},
     {"Tax and Rewards Functions", "Manufacturer Coupon", "CAT", "PRICE CHECK", "4", "5", "6", "Enter"},
     {"Cash/Gift Card Redeemed", "Program Discount", "BLANK", "VOID", "1", "2", "3", "Enter"},
     {"BLANK", "BLANK", "Check", "Charge", "0", "BLANK", "BLANK", "BLANK"}};
@@ -59,6 +54,10 @@ public class RegisterButtonManager
 
             case "Sign-In":
                 usedButtonList = lockedTypeInID;
+            break;
+
+            case "PayTime":
+                usedButtonList = checkout;
             break;
         }
 
@@ -97,8 +96,21 @@ public class RegisterButtonManager
             return "Register-Main";
         } else if(usedButtonList[row][column].equals("Sign Off")) {
             return "Locked";
+        } else if(usedButtonList[row][column].equals("Total")) {
+            return "PayTime";
         }
         return "NO CHANGE";
+    }
+
+    public String getButtonName() {
+        if(usedButtonList[row][column].equals("CAT")) {
+            return "CAT";
+        } else if(usedButtonList[row][column].equals("CASH")) {
+            return "CASH";
+        } else if(usedButtonList[row][column].equals("CHECK")) {
+            return "CHECK";
+        }
+        return "BLANK";
     }
 
     public String debugInfo() {
@@ -107,6 +119,6 @@ public class RegisterButtonManager
 
     public void reset() {
         row = 3;
-        column = 7;
+        column = 6;
     }
 }

@@ -10,8 +10,8 @@ public class NPCStorage {
     }
     static public String[] managerPhrases = {"Welcome to Normal Co! I'm your new manager Aaron. Let's get started training on your first day!",
                                 "Hit the \"Sign On\" button to get started.",
-                                "Now that you've signed on, let's scan an item. Click the scan button on the bottom right side of your screen.",
-                                ""
+                                "Now that you've signed on, let's scan an item. Click the scan button on the bottom right side of your screen. Be sure to hit total when you're done.",
+                                "I'm paying with card. Hit \'CAT\'"
 };
 
 String[] customerPhrases = {"I'd like to purchase these, please.",

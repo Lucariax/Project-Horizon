@@ -12,12 +12,11 @@ import wolfEngine.artificialIntelligence.DynamicNPC;
 import wolfEngine.artificialIntelligence.NPCStorage;
 
 public class ScreenManager {
-    private String version = "Indev v1.0.0";
+    private String version = "Developer Build 5/22/2019";
     public int x, y;
     public BufferedImage displayedImage;
     public String currentScreen;
     public ImageStorage ims = new ImageStorage();
-    //private int hasPlayed = 0;
     public RegisterButtonManager rbm = new RegisterButtonManager();
     public ArrayList<Item> checkout;
     public DynamicNPC currNPC;
@@ -68,11 +67,12 @@ public class ScreenManager {
                 Main.engine.listenerMouse.reset();
             break;
 
-            case "Rewards":
-
-            case "ItemAdded":
-
-            case "Checkout":
+            case "PayTime":
+                displayedImage = ims.registerMain_total;
+                Main.engine.drawImage(displayedImage, 0, 126);
+                rbm.reset();
+                Main.engine.listenerMouse.reset();
+            break;
         }
     }
 

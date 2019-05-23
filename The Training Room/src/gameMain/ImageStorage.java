@@ -14,6 +14,7 @@ public class ImageStorage {
 	BufferedImage wildWolfEngine = null;
 	BufferedImage nitroviumLogo = null;
 	BufferedImage register_signed_in = null;
+	BufferedImage registerMain_total = null;
 
 	BufferedImage male_worker= null;
 	BufferedImage male_worker_2 = null;
@@ -68,8 +69,13 @@ public class ImageStorage {
 			register_signed_in = ImageIO.read(new File(baseImageLocation + "registerMain_signedIn.png"));
 		} catch(IOException e) {};
 
-		// NPC Images
+		try
+		{
+			registerMain_total = ImageIO.read(new File(baseImageLocation + "registerMain_total.png"));
+		} catch(IOException e) {};
 
+		// NPC Images
+		/*
 		try
 		{
 			male_worker = ImageIO.read(new File(baseImageLocationP + "male_worker.png"));
@@ -78,7 +84,6 @@ public class ImageStorage {
 		{
 			male_worker_2 = ImageIO.read(new File(baseImageLocationP + "male_worker_2.png"));
 		} catch(IOException e) {};
-		/*
 		try
 		{
 			register_signed_in = ImageIO.read(new File(baseImageLocationP + "registerMain_signedIn.png"));
