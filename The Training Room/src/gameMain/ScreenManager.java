@@ -12,7 +12,7 @@ import wolfEngine.artificialIntelligence.DynamicNPC;
 import wolfEngine.artificialIntelligence.NPCStorage;
 
 public class ScreenManager {
-    private String version = "Developer Build 5/22/2019";
+    private String version = "Developer Build 5/23/2019";
     public int x, y;
     public BufferedImage displayedImage;
     public String currentScreen;

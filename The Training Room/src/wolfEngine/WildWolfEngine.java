@@ -81,14 +81,15 @@ public class WildWolfEngine
                 hasRead++;
             }
 
-            if(screenManage.rbm.getButtonName().equals("CAT")) {
+            if(screenManage.rbm.getButtonName().equals("CAT") || screenManage.rbm.getButtonName().equals("Cash") || screenManage.rbm.getButtonName().equals("Check")) {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Descrip", Font.PLAIN, 20));
-                g.drawString("Processing card payment...", 760, 200);
+                g.drawString("Processing payment...", 760, 200);
                 graphics.sleep(200);
-                screenManage.checkout.clear();
                 g.drawString("Reciept printed. Customer has left.", 760, 250);
                 graphics.sleep(200);
+                screenManage.checkout.clear();
+                screenManage.currNPC.resetBasket();
                 screenManage.currNPC = screenManage.nps.pickCustomer();
                 screenManage.drawImage("Register-Main");
                 enterPress = 1;
@@ -97,40 +98,9 @@ public class WildWolfEngine
                 screenManage.buttonMode();
                 hasRead = 0;
                 drawItemStrings();
-            } else if(screenManage.rbm.getButtonName().equals("Cash")) {
-                g.setColor(Color.BLACK);
-                g.setFont(new Font("Descrip", Font.PLAIN, 20));
-                g.drawString("Processing cash payment...", 760, 200);
-                graphics.sleep(200);
-                g.drawString("Reciept printed. Customer has left.", 760, 250);
-                graphics.sleep(200);
-                screenManage.checkout.clear();
-                screenManage.currNPC = screenManage.nps.pickCustomer();
-                screenManage.drawImage("Register-Main");
-                enterPress = 1;
-                managerRun++;
-                screenManage.currentScreen = "Register-Main";
-                screenManage.buttonMode();
-                hasRead = 0;
-                drawItemStrings();
-            } else if(screenManage.rbm.getButtonName().equals("Check")) {
-                g.setColor(Color.BLACK);
-                g.setFont(new Font("Descrip", Font.PLAIN, 20));
-                g.drawString("Processing check payment...", 760, 200);
-                graphics.sleep(200);
-                g.drawString("Reciept printed. Customer has left.", 760, 250);
-                graphics.sleep(200);
-                screenManage.checkout.clear();
-                screenManage.currNPC = screenManage.nps.pickCustomer();
-                screenManage.drawImage("Register-Main");
-                enterPress = 1;
-                managerRun++;
-                screenManage.currentScreen = "Register-Main";
-                screenManage.buttonMode();
-                hasRead = 0;
-                drawItemStrings();
+                screenManage.setX(0);
+                screenManage.setY(0);
             }
-
             screenManage.setX(listenerMouse.getX());
             screenManage.setY(listenerMouse.getY());
             screenManage.buttonMode();

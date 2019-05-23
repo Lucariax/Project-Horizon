@@ -30,4 +30,10 @@ public class DynamicNPC extends NPC {
 	public int getBasketSize() {
 		return basket.size();
 	}
+
+	public void resetBasket() {
+		for(int i = 0; i < (int)(5*Math.random() + 3); i++) {
+			basket.add(itemStore.getRandomItem());
+		}
+	}
 }
