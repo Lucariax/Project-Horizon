@@ -12,8 +12,11 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.awt.Rectangle;
 
 import gameMain.ScreenManager;
+import gameMain.FloorFunctions;
+import gameMain.Main;
 
 public class WildWolfEngine 
 {
@@ -23,8 +26,8 @@ public class WildWolfEngine
     public KeyListen listenerKey;
     public MouseListen listenerMouse;
     public ScreenManager screenManage;
-    characterGen gen;
-
+    public FloorFunctions floor;
+    
     private int runOnce = 0, enterPress = 0;
 
     public WildWolfEngine() 
@@ -36,7 +39,9 @@ public class WildWolfEngine
         g = graphics.getGraphics();
         listenerMouse = new MouseListen(graphics);
         listenerKey = new KeyListen(graphics);
-        gen = new characterGen(listenerMouse, listenerKey);
+        floor = new FloorFunctions();
+        floor.player = new Rectangle(listenerKey.startX + listenerKey.xChange, listenerKey.startY + listenerKey.yChange, 10, 10);
+        
     }
     public void drawImage(BufferedImage image) {
         g.drawImage(image, 0, 0, null);
@@ -46,30 +51,9 @@ public class WildWolfEngine
         g.drawImage(image, x, y, null);
     }
     public void runGame() {
-        /*
-        while(true) {
-            System.out.println(listenerKey.getKey());
-            gen.run();
-        }*/
 
         while(true)
         {
-            // System.out.println(listenerKey.getKey());
-            // if(runOnce < 1) {
-            //     runOnce++;
-            //     screenManage.openingSequence();
-            
-            // }  
-            // if(listenerKey.getKey() == KeyEvent.VK_ENTER && enterPress == 0)
-            // {
-            //     screenManage.drawMain();
-            //     enterPress++;
-            //     graphics.sleep(200);
-            //     scrollRead(NPCStorage.managerPhrases[0]);
-            // }
-            // if(enterPress > 0) {
-            //     screenManage.buttonMode("");
-            // }
             System.out.println(listenerKey.getKey());
             if(runOnce < 1) {
                 runOnce++;
@@ -77,34 +61,33 @@ public class WildWolfEngine
             
             }  
 
-            if(listenerMouse.getX() >= 85 && listenerMouse.getX() <= 115){
-                if(listenerMouse.getY() >= 150 && listenerMouse.getY() <= 180 && runOnce == 1){
+            if(listenerMouse.getX() >= 85 && listenerMouse.getX() <= 230){
+                if(listenerMouse.getY() >= 150 && listenerMouse.getY() <= 292 && runOnce == 1){
                     screenManage.drawMain();
                     enterPress++;
                     runOnce++;
-                    //System.out.println("Register Button - " + runOnce);
                     graphics.sleep(200);
                     
                     scrollRead(NPCStorage.managerPhrases[0]);
                 }
             }
-            else  if(listenerMouse.getX() >= 620 && listenerMouse.getX() <= 650){
-                     if(listenerMouse.getY() >= 150 && listenerMouse.getY() <= 180 && runOnce == 1){
+            else  if(listenerMouse.getX() >= 620 && listenerMouse.getX() <= 765){
+                     if(listenerMouse.getY() >= 150 && listenerMouse.getY() <= 292 && runOnce == 1){
                          screenManage.drawFloor();
                          enterPress++;
                          runOnce++;
-                         //System.out.println("Register Button - " + runOnce);
-                        // graphics.sleep(200);
-                    
-                         //scrollRead(NPCStorage.managerPhrases[0]);
                 }
                         
                 }
                 if(enterPress > 0) {
                     screenManage.buttonMode("");
                 }
+                
+               // System.out.print("Before move image");
+               // floor.moveImage();
             }
-          }
+            
+        }
         
     
 

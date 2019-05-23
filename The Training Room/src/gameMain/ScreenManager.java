@@ -50,19 +50,21 @@ public class ScreenManager {
         displayedImage = ims.storeFloor;
         graphics.clear();
         graphics.setBackground(Color.BLACK);
-        Main.engine.drawImage(displayedImage, 0, 126);
+        Main.engine.drawImage(displayedImage, 0, 0);
         Main.engine.g.setColor(Color.WHITE);
-        Main.engine.g.fillRect(750, 0, 370, 630);
+        Main.engine.g.fillRect(730, 0, 370, 630);
         Main.engine.g.setColor(Color.BLACK);
     }
 
     public void drawTwoButtons(){
+        ims.setImages();
+        displayedImage = ims.registerButton;
+        graphics.clear();
         graphics.setBackground(Color.BLACK);
-        Main.engine.g.setColor(Color.GRAY);
-        Main.engine.g.fillRect(85, 150, 30, 30);
-        Main.engine.g.drawString("Register", 85, 195);
-        Main.engine.g.fillRect(620, 150, 30, 30);
-        Main.engine.g.drawString("Floor", 620, 195);
+        Main.engine.drawImage(displayedImage, 85, 150);
+        displayedImage = ims.floorButton;
+        Main.engine.drawImage(displayedImage, 620, 150);
+        
     }
 
     public void openingSequence() {

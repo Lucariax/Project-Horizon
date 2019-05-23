@@ -13,6 +13,9 @@ public class ImageStorage {
 	BufferedImage wildWolfEngine = null;
 	BufferedImage nitroviumLogo = null;
 	BufferedImage storeFloor = null;
+	BufferedImage mainCharacter = null;
+	BufferedImage floorButton = null;
+	BufferedImage registerButton = null;
 	public BufferedImage backgroundCharacterGen = null;
 
 	public ImageStorage() {
@@ -48,7 +51,22 @@ public class ImageStorage {
 
 		try
 		{
-			storeFloor = ImageIO.read(new File(baseImageLocation + "storeFloor.png"));
+			storeFloor = ImageIO.read(new File(baseImageLocation + "Supermarket layout.png"));
+		} catch(IOException e) {};
+
+		try
+		{
+			mainCharacter = ImageIO.read(new File(baseImageLocation + "mainCharacter.png"));
+		} catch(IOException e) {};
+
+		try
+		{
+			floorButton = ImageIO.read(new File(baseImageLocation + "Floor Button.png"));
+		} catch(IOException e) {};
+
+		try
+		{
+			registerButton = ImageIO.read(new File(baseImageLocation + "Register Button.png"));
 		} catch(IOException e) {};
 
 		try
