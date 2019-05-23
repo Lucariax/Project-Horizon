@@ -21,7 +21,7 @@ public class WildWolfEngine
     public MouseListen listenerMouse;
     public ScreenManager screenManage;
 
-    private int runOnce = 0, enterPress = 0;
+    private int runOnce = 0, enterPress = 0, managerRun = 0, hasRead = 0;
 
     public WildWolfEngine() 
     {
@@ -46,7 +46,6 @@ public class WildWolfEngine
                 runOnce++;
                 screenManage.openingSequence();
             }
-             
             if(listenerKey.getKey() == KeyEvent.VK_ENTER && enterPress == 0)
             {
                 screenManage.drawMain();
@@ -77,36 +76,59 @@ public class WildWolfEngine
                 enterPress++;
             }
 
+            if(managerRun != 0 && hasRead == 0) {
+                scrollRead(screenManage.nps.customerPhrases[(int)(Math.random()*3)]);
+                hasRead++;
+            }
+
             if(screenManage.rbm.getButtonName().equals("CAT")) {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Descrip", Font.PLAIN, 20));
-                g.drawString("Processing card payment...", 760, 400);
+                g.drawString("Processing card payment...", 760, 200);
                 graphics.sleep(200);
                 screenManage.checkout.clear();
-                g.drawString("Reciept printed. Customer has left.", 760, 450);
+                g.drawString("Reciept printed. Customer has left.", 760, 250);
                 graphics.sleep(200);
                 screenManage.currNPC = screenManage.nps.pickCustomer();
                 screenManage.drawImage("Register-Main");
-            } else if(screenManage.rbm.getButtonName().equals("CASH")) {
+                enterPress = 1;
+                managerRun++;
+                screenManage.currentScreen = "Register-Main";
+                screenManage.buttonMode();
+                hasRead = 0;
+                drawItemStrings();
+            } else if(screenManage.rbm.getButtonName().equals("Cash")) {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Descrip", Font.PLAIN, 20));
-                g.drawString("Processing cash payment...", 760, 400);
+                g.drawString("Processing cash payment...", 760, 200);
                 graphics.sleep(200);
-                g.drawString("Reciept printed. Customer has left.", 760, 450);
+                g.drawString("Reciept printed. Customer has left.", 760, 250);
                 graphics.sleep(200);
                 screenManage.checkout.clear();
                 screenManage.currNPC = screenManage.nps.pickCustomer();
                 screenManage.drawImage("Register-Main");
-            } else if(screenManage.rbm.getButtonName().equals("CHECK")) {
+                enterPress = 1;
+                managerRun++;
+                screenManage.currentScreen = "Register-Main";
+                screenManage.buttonMode();
+                hasRead = 0;
+                drawItemStrings();
+            } else if(screenManage.rbm.getButtonName().equals("Check")) {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Descrip", Font.PLAIN, 20));
-                g.drawString("Processing check payment...", 760, 400);
+                g.drawString("Processing check payment...", 760, 200);
                 graphics.sleep(200);
-                g.drawString("Reciept printed. Customer has left.", 760, 450);
+                g.drawString("Reciept printed. Customer has left.", 760, 250);
                 graphics.sleep(200);
                 screenManage.checkout.clear();
                 screenManage.currNPC = screenManage.nps.pickCustomer();
                 screenManage.drawImage("Register-Main");
+                enterPress = 1;
+                managerRun++;
+                screenManage.currentScreen = "Register-Main";
+                screenManage.buttonMode();
+                hasRead = 0;
+                drawItemStrings();
             }
 
             screenManage.setX(listenerMouse.getX());
@@ -146,7 +168,7 @@ public class WildWolfEngine
         String[] newN = n.split(" ");
         g.setFont(new Font("Descrip", Font.PLAIN, 20));
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 605, 100);
+        g.fillRect(0, 0, 605, 130);
         g.setColor(Color.WHITE);
 
         for(String s: newN) {

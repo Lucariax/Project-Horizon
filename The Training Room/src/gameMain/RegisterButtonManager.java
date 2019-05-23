@@ -103,12 +103,14 @@ public class RegisterButtonManager
     }
 
     public String getButtonName() {
-        if(usedButtonList[row][column].equals("CAT")) {
-            return "CAT";
-        } else if(usedButtonList[row][column].equals("CASH")) {
-            return "CASH";
-        } else if(usedButtonList[row][column].equals("CHECK")) {
-            return "CHECK";
+        if(usedButtonList != null) {
+            if(usedButtonList[row][column].equals("CAT")) {
+                return "CAT";
+            } else if(usedButtonList[row][column].equals("Cash")) {
+                return "Cash";
+            } else if(usedButtonList[row][column].equals("Check")) {
+                return "Check";
+            }
         }
         return "BLANK";
     }

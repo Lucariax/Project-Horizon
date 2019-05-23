@@ -14,10 +14,9 @@ public class NPCStorage {
                                 "I'm paying with card. Hit \'CAT\'"
 };
 
-String[] customerPhrases = {"I'd like to purchase these, please.",
-                                "",
-                                "",
-                                ""
+static public String[] customerPhrases = {"I'd like to purchase these, please.",
+                                "I'm buying these items.",
+                                "Can you ring me out for these?",
 };
 
 String[] employeePhrases = {"Sell anything good today?",
