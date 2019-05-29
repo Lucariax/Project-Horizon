@@ -48,9 +48,12 @@ public class WildWolfEngine
             }
             if(listenerKey.getKey() == KeyEvent.VK_ENTER && enterPress == 0)
             {
+                System.out.println(screenManage.ims.manager == null);
+                screenManage.currNPC = screenManage.nps.manager;
                 screenManage.drawMain();
                 enterPress++;
                 graphics.sleep(200);
+                drawImage(screenManage.ims.manager);
                 scrollRead(NPCStorage.managerPhrases[0]);
                 graphics.sleep(1000);
                 scrollRead(NPCStorage.managerPhrases[1]);
@@ -61,7 +64,6 @@ public class WildWolfEngine
                 drawItemStrings();
                 scrollRead(NPCStorage.managerPhrases[2]);
             }
-
             if(750 < listenerMouse.getX() && listenerMouse.getX() < 1120 && 400 < listenerMouse.getY() && listenerMouse.getY() < 630) {
                 g.setColor(Color.WHITE);
                 g.fillRect(750, 0, 370, 400);
@@ -77,6 +79,7 @@ public class WildWolfEngine
             }
 
             if(managerRun != 0 && hasRead == 0) {
+                drawImage(screenManage.currNPC.getNPCImage());
                 scrollRead(screenManage.nps.customerPhrases[(int)(Math.random()*3)]);
                 hasRead++;
             }
@@ -104,6 +107,7 @@ public class WildWolfEngine
             screenManage.setX(listenerMouse.getX());
             screenManage.setY(listenerMouse.getY());
             screenManage.buttonMode();
+            drawImage(screenManage.currNPC.getNPCImage());
         }
     }
     public void drawItemStrings() {
@@ -133,20 +137,20 @@ public class WildWolfEngine
     }
 
     public void scrollRead(String n) {
-        int startX = 105;
+        int startX = 205;
         int startY = 25;
         String[] newN = n.split(" ");
         g.setFont(new Font("Descrip", Font.PLAIN, 20));
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 605, 130);
+        g.fillRect(150, 0, 600, 130);
         g.setColor(Color.WHITE);
 
         for(String s: newN) {
             if(!newN[newN.length - 1].equalsIgnoreCase(s)) {
                 s += " ";
             }
-            if(startX >= 500) {
-                startX = 105;
+            if(startX >= 600) {
+                startX = 205;
                 startY += 25;
             }
             for(char t: s.toCharArray()) {
