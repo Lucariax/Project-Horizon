@@ -8,15 +8,15 @@ import java.awt.Font;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import wolfEngine.gameplay.KeyListen;
+import gameMain.ScreenManager;
 
 public class  FloorFunctions {
-    public KeyListen listenerKey;
     public BufferedImage displayedImage;
     public ImageStorage ims = new ImageStorage();
-    
+    public ScreenManager screenManage;
     
     //store perminitor
-    Rectangle r1 = new Rectangle(25, 150, 700, 550);
+    Rectangle r1 = new Rectangle(0, 0, 216, 291);
     //shelfs
     Rectangle r2 = new Rectangle(77, 373, 53, 158);
     Rectangle r3 = new Rectangle(177, 373, 53, 158);
@@ -31,13 +31,18 @@ public class  FloorFunctions {
     //character
     public Rectangle player; 
     
-    
-    Rectangle[] array = new Rectangle[]{ r1,r2,r3,r4,r5,r6,r7,r8,r9 };
+    Rectangle[] array = new Rectangle[]{ r1};
 
     public void moveImage(){ 
+        int xstartLocation = gameMain.Main.engine.listenerKey.startX;
+        int ystartLocation = gameMain.Main.engine.listenerKey.startY;
+        int xLocation = xstartLocation + gameMain.Main.engine.listenerKey.xChange;
+        int yLocation = ystartLocation + gameMain.Main.engine.listenerKey.yChange;
         ims.setImages();
         displayedImage = ims.mainCharacter;
-        Main.engine.drawImage(displayedImage, listenerKey.startX + listenerKey.xChange, listenerKey.startY + listenerKey.yChange);
+        Main.engine.drawImage(displayedImage, xLocation, yLocation);
+         
+        
     }
 
     public static boolean isCollide(Rectangle[] array, Rectangle player){
@@ -48,6 +53,10 @@ public class  FloorFunctions {
         }
         
         return false;
+    }
+
+    public void removeImage(){
+        graphics.clear();
     }
     
 }

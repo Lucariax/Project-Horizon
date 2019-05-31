@@ -21,6 +21,7 @@ import gameMain.Main;
 public class WildWolfEngine 
 {
     private static boolean isStarted;
+    public static boolean floorImage;
     public static GameGraphics graphics;
     public Graphics g;
     public KeyListen listenerKey;
@@ -41,6 +42,7 @@ public class WildWolfEngine
         listenerKey = new KeyListen(graphics);
         floor = new FloorFunctions();
         floor.player = new Rectangle(listenerKey.startX + listenerKey.xChange, listenerKey.startY + listenerKey.yChange, 10, 10);
+        floorImage = false;
         
     }
     public void drawImage(BufferedImage image) {
@@ -50,7 +52,7 @@ public class WildWolfEngine
     public void drawImage(BufferedImage image, int x, int y) {
         g.drawImage(image, x, y, null);
     }
-    public void runGame() {
+    public  void runGame() {
 
         while(true)
         {
@@ -74,8 +76,10 @@ public class WildWolfEngine
             else  if(listenerMouse.getX() >= 620 && listenerMouse.getX() <= 765){
                      if(listenerMouse.getY() >= 150 && listenerMouse.getY() <= 292 && runOnce == 1){
                          screenManage.drawFloor();
+                         floorImage = true;
                          enterPress++;
                          runOnce++;
+                         
                 }
                         
                 }
@@ -83,8 +87,10 @@ public class WildWolfEngine
                     screenManage.buttonMode("");
                 }
                 
-               // System.out.print("Before move image");
-               // floor.moveImage();
+                if(floorImage == true){
+                    floor.moveImage();
+                }
+                
             }
             
         }
