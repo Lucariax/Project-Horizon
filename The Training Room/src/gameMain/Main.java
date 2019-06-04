@@ -14,7 +14,7 @@ public class Main
         engine.runGame();
     }
 
-    public static WildWolfEngine getEngine() {
+    public WildWolfEngine getEngine() {
         return engine;
     }
 }

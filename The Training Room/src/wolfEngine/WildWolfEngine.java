@@ -80,20 +80,21 @@ public class WildWolfEngine
 
             if(managerRun != 0 && hasRead == 0) {
                 drawImage(screenManage.currNPC.getNPCImage());
-                scrollRead(screenManage.nps.customerPhrases[(int)(Math.random()*3)]);
+                scrollRead(screenManage.currNPC.name + ": " + screenManage.nps.customerPhrases[(int)(Math.random()*3)]);
                 hasRead++;
             }
 
             if(screenManage.rbm.getButtonName().equals("CAT") || screenManage.rbm.getButtonName().equals("Cash") || screenManage.rbm.getButtonName().equals("Check")) {
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("Descrip", Font.PLAIN, 20));
-                g.drawString("Processing payment...", 760, 200);
+                g.drawString("Processing payment...", 760, 25);
                 graphics.sleep(200);
-                g.drawString("Reciept printed. Customer has left.", 760, 250);
+                g.drawString("Reciept printed. Customer has left.", 760, 50);
+                g.drawString("A new customer has arrived.", 760, 75);
                 graphics.sleep(200);
                 screenManage.checkout.clear();
                 screenManage.currNPC.resetBasket();
-                screenManage.currNPC = screenManage.nps.pickCustomer();
+                screenManage.newNPC();
                 screenManage.drawImage("Register-Main");
                 enterPress = 1;
                 managerRun++;
@@ -103,6 +104,7 @@ public class WildWolfEngine
                 drawItemStrings();
                 screenManage.setX(0);
                 screenManage.setY(0);
+                //System.out.println(screenManage.currNPC.getNPCImage() == null);
             }
             screenManage.setX(listenerMouse.getX());
             screenManage.setY(listenerMouse.getY());
@@ -112,9 +114,11 @@ public class WildWolfEngine
     }
     public void drawItemStrings() {
         int startX = 760;
-        int startY = 50;
+        int startY = 170;
+
         g.setColor(Color.BLACK);
         g.setFont(new Font("Descrip", Font.PLAIN, 20));
+        g.drawString("CUSTOMER CART:", startX, (startY - 30));
         for(int i = 0; i < screenManage.currNPC.getBasketSize(); i++) {
             g.drawString(screenManage.currNPC.getBasket().get(i).getName(), startX, (startY + i*25));
         }
@@ -133,7 +137,7 @@ public class WildWolfEngine
         g.fillRect(633, 357, 50, 16);
         g.setColor(Color.BLACK);
         g.setFont(new Font("Descrip", Font.PLAIN, 14));
-        g.drawString(String.format("%.2f", total) + "", 645, 368);
+        g.drawString(String.format("%.2f", (1.075)*total) + "", 645, 368);
     }
 
     public void scrollRead(String n) {

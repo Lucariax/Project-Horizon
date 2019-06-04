@@ -91,7 +91,7 @@ public class ImageStorage {
 		} catch(IOException e) {};
 		try
 		{
-			guy_1 = ImageIO.read(new File(baseImageLocationP + "guy_1.png"));
+			guy_1 = ImageIO.read(new File(baseImageLocationP + "guy_1_smirk.png"));
 		} catch(IOException e) {};
 		try
 		{
