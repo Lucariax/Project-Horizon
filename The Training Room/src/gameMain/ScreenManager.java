@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ScreenManager {
-    private String version = "Indev v0.0.2";
+    private String version = "Indev v3.0.0";
     private int x, y;
     public BufferedImage displayedImage;
     private String currentScreen;

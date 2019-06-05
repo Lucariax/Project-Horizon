@@ -89,6 +89,12 @@ public class WildWolfEngine
                 
                 if(floorImage == true){
                     floor.moveImage();
+
+                 floor.isCollide(floor.array, floor.player);
+
+                 if(floor.isCollide(floor.array, floor.player) == true){
+                     System.out.println("collided");
+                 }
                 }
                 
             }
