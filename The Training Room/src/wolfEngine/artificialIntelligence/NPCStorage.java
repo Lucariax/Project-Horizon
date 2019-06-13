@@ -5,49 +5,52 @@ import java.awt.image.BufferedImage;
 import gameMain.ImageStorage;
 
 public class NPCStorage {
-    public NPCStorage() {
-        
-    }
+    public DynamicNPC woman1, woman2, woman3, woman4, woman5, man1, man2, man3, man4, man5;
+    public DynamicNPC manager;
     static public String[] managerPhrases = {"Welcome to Normal Co! I'm your new manager Aaron. Let's get started training on your first day!",
-                                "Hit the \"Sign On\" button to get started.",
-                                "Now that you've signed on, let's scan an item. Click the scan button on the bottom right side of your screen. Be sure to hit total when you're done.",
-                                "I'm paying with card. Hit \'CAT\'"
-};
+        "Hit the \"Sign On\" button to get started.",
+        "Now that you've signed on, let's scan an item. Click the scan button on the bottom right side of your screen. Be sure to hit total when you're done.",
+        "I'm paying with card. Hit \'CAT\'"
+    };
 
-static public String[] customerPhrases = {"I'd like to purchase these, please.",
-                                "I'm buying these items.",
-                                "Can you ring me out for these?",
-};
+    static public String[] customerPhrases = {"I'd like to purchase these, please.",
+        "I'm buying these items.",
+        "Can you ring me out for these?",
+    };
 
-String[] employeePhrases = {"Sell anything good today?",
-                                "",
-                                "",
-                                ""
-};
-    ImageStorage ims = new ImageStorage();
-    BufferedImage NPCImage = ims.titleScreen;
-    public DynamicNPC manager = new DynamicNPC("Aaron", managerPhrases, ims.manager);
+    String[] employeePhrases = {"Sell anything good today?",
+        "",
+        "",
+        ""
+    };
 
-    // Customers
-    DynamicNPC woman1 = new DynamicNPC("Adriana", customerPhrases, ims.girl_1);
-    DynamicNPC woman2 = new DynamicNPC("Julie", customerPhrases, ims.girl_2);
-    DynamicNPC woman3 = new DynamicNPC("Jen", customerPhrases, ims.girl_3);
-    DynamicNPC woman4 = new DynamicNPC("Susanne", customerPhrases, ims.girl_4);
-    DynamicNPC woman5 = new DynamicNPC("Michelle", customerPhrases, ims.girl_5);
+    ImageStorage ims;
+    
+    public NPCStorage() {
+        ims = new ImageStorage();
+        // Customers
+        manager = new DynamicNPC("Aaron", managerPhrases, ims.manager);
+        woman1 = new DynamicNPC("Adriana", customerPhrases, ims.girl_1);
+        woman2 = new DynamicNPC("Julie", customerPhrases, ims.girl_2);
+        woman3 = new DynamicNPC("Jen", customerPhrases, ims.girl_3);
+        woman4 = new DynamicNPC("Susanne", customerPhrases, ims.girl_4);
+        woman5 = new DynamicNPC("Michelle", customerPhrases, ims.girl_5);
 
-    DynamicNPC man1 = new DynamicNPC("Tom", customerPhrases, ims.guy_1);
-    DynamicNPC man2 = new DynamicNPC("Bob", customerPhrases, ims.guy_2);
-    DynamicNPC man3 = new DynamicNPC("Bill", customerPhrases, ims.guy_3);
-    DynamicNPC man4 = new DynamicNPC("Nick", customerPhrases, ims.guy_4);
-    DynamicNPC man5 = new DynamicNPC("Tyrone", customerPhrases, ims.guy_5);
+        man1 = new DynamicNPC("Tom", customerPhrases, ims.guy_1);
+        man2 = new DynamicNPC("Bob", customerPhrases, ims.guy_2);
+        man3 = new DynamicNPC("Bill", customerPhrases, ims.guy_3);
+        man4 = new DynamicNPC("Nick", customerPhrases, ims.guy_4);
+        man5 = new DynamicNPC("Tyrone", customerPhrases, ims.guy_5);
 
-    // Associates
-    StaticNPC employeefem1 = new StaticNPC("Aubrey", employeePhrases, ims.female_worker);
-    StaticNPC employeefem2 = new StaticNPC("Emily", employeePhrases, ims.female_worker_2);
+        // Associates
+        StaticNPC employeefem1 = new StaticNPC("Aubrey", employeePhrases, ims.female_worker);
+        StaticNPC employeefem2 = new StaticNPC("Emily", employeePhrases, ims.female_worker_2);
 
-    StaticNPC employeeman1 = new StaticNPC("Alex", employeePhrases, ims.male_worker);
-    StaticNPC employeeman2 = new StaticNPC("Will", employeePhrases, ims.male_worker_2);
+        StaticNPC employeeman1 = new StaticNPC("Alex", employeePhrases, ims.male_worker);
+        StaticNPC employeeman2 = new StaticNPC("Will", employeePhrases, ims.male_worker_2);
 
+    }
+    
     public DynamicNPC pickCustomer() {
         int rando = (int)(10*Math.random() + 1);
 

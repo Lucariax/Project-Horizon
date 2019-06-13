@@ -48,7 +48,6 @@ public class WildWolfEngine
             }
             if(listenerKey.getKey() == KeyEvent.VK_ENTER && enterPress == 0)
             {
-                System.out.println(screenManage.ims.manager == null);
                 screenManage.currNPC = screenManage.nps.manager;
                 screenManage.drawMain();
                 enterPress++;
@@ -106,6 +105,9 @@ public class WildWolfEngine
                 screenManage.setY(0);
                 //System.out.println(screenManage.currNPC.getNPCImage() == null);
             }
+            screenManage.ims.setImages();
+            System.out.println(screenManage.ims.girl_3 == null);
+            System.out.println(screenManage.currNPC.getNPCImage() == null);
             screenManage.setX(listenerMouse.getX());
             screenManage.setY(listenerMouse.getY());
             screenManage.buttonMode();
